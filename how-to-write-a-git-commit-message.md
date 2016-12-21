@@ -1,4 +1,46 @@
 ##编写git commit message的七条建议
+引言：为什么说提交信息很重要
+
+如果你随机的去浏览一下git仓库的日志，你会发现提交信息都或多或少有点糟糕。举个例子，看一下下面这些[“哥儿们儿”](https://github.com/spring-projects/spring-framework/commits/e5f4b49?author=cbeams)，它们来自于我早期对Spring的提交：
+
+    $ git log --oneline -5 --author cbeams --before "Fri Mar 26 2009"
+    e5f4b49 Re-adding ConfigurationPostProcessorTests after its brief removal in r814. @Ignore-ing the testCglibClassesAreLoadedJustInTimeForEnhancement() method as it turns out this was one of the culprits in the recent build breakage. The classloader hacking causes subtle downstream effects, breaking unrelated tests. The test method is still useful, but should only be run on a manual basis to ensure CGLIB is not prematurely classloaded, and should not be run as part of the automated build.
+    2db0f12 fixed two build-breaking issues: + reverted ClassMetadataReadingVisitor to revision 794 + eliminated ConfigurationPostProcessorTests until further investigation determines why it causes downstream tests to fail (such as the seemingly unrelated ClassPathXmlApplicationContextTests)
+    147709f Tweaks to package-info.java files
+    22b25e0 Consolidated Util and MutableAnnotationUtils classes into existing AsmUtils
+    7f96f57 polishing
+    
+呀~来对比一下来自同一仓库的最近的提交：
+
+    $ git log --oneline -5 --author pwebb --before "Sat Aug 30 2014"
+    5ba3db6 Fix failing CompositePropertySourceTests
+    84564a0 Rework @PropertySource early parsing logic
+    e142fd1 Add tests for ImportSelector meta-data
+    887815f Update docbook dependency and generate epub
+    ac8326d Polish mockito usage
+    
+你更喜欢看哪个？
+前者的提交记录在长度和形式上都相差甚远；后者在这些方面保持了简介和一致。前者是在不经思考的情况下提交的，而后者的提交却从来不是偶然。
+
+虽然大多数仓库的日志看起来都和前者一样，但也有一些例外的。 [Linux kernel](https://github.com/torvalds/linux/commits/master) 和[git仓库](https://github.com/git/git/commits/master)自己就是很好的例子。也可以看一下[Springboot](https://github.com/spring-projects/spring-boot/commits/master)或者 [Tim Pope](https://github.com/tpope/vim-pathogen/commits/master)维护的任何仓库。
+
+这些仓库的贡献者知道对于后来的开发者（也恰恰是以后的自己）来说，风格良好的提交信息是在上下文中传达变化的最好方式。Diff命令可以告诉你什么地方改变了,但是只有提交信息可以恰当的告诉你这些改变的原因。Peter Hutterer 很好的阐述了这一点：
+
+    重现一段代码的上下文是浪费的，但是我们不能完全避免它，我们要做的是尽力减少这些情况的发生。提交信息可以做到这一点，因此，提交消息显示开发人员是否是一个好的合作者。
+
+如果你没有考虑到什么是一个良好的git提交，可能是你没有花很多时间使用git log和相关工具。这里有一个恶性循环：由于提交历史是非结构化和不一致的，所以人们不会花很多时间使用或留意它。而它们越没有被使用和小心维护，就越保持非结构化和不一致。
+
+但是一个被小心维护的日志是漂亮和有用的。git blame, revert, rebase, log, shortlog和其他的子命令使生活变得更加美好。审查他人的提交和推送请求变成一件值得去做的事情，也因此突然可以被独立的完成。理解数月甚至数年之间的代码含义不仅变得可能，而且变得更加高效。
+
+一个项目的长时间的成功得益于（除其他事项外）它的可维护性，而对于维护者来说，很少有工具比他的项目日志来得更加有力。花点时间学习一下怎么去合理的关注它是值得的。开始的麻烦很快就会变成习惯，最后会变成骄傲的来源和相关方面的生产力的提高。
+
+风格。标记规则，边距，语法，大小写以及标点符号。拼写出这些东西，去除掉不确定的部分，然后尽量让它们变得简单。最后你的日志将明显保持一致，这不仅有利于阅读，也真切的让你对日常基础有更深的理解。
+
+内容。什么样的信息才是提交主体应该包含的呢（如果有的话）？而什么样的是不应该被包含的呢？
+
+元数据。怎样去追踪诸如ID、推送请求数这些信息来作为参考？
+
+幸运的是，这里有一些良好的习惯使你的提交信息变得更加地道。事实上，许多这些习惯都已经被git命令行函数预设了。你不需要再重复发明。你只要遵循下面的[七条规则](http://chris.beams.io/posts/git-commit/#seven-rules)，然后像一个专业人员一样用你的方式去提交。
 
 Git提交信息格式的7条优良规范
 
