@@ -1,5 +1,5 @@
-##编写git commit message的七条建议
-引言：为什么说提交信息很重要
+# 编写git commit message的七条建议
+## 引言：为什么说提交信息很重要
 
 如果你随机的去浏览一下git仓库的日志，你会发现提交信息都或多或少有点糟糕。举个例子，看一下下面这些[“哥儿们儿”](https://github.com/spring-projects/spring-framework/commits/e5f4b49?author=cbeams)，它们来自于我早期对Spring的提交：
 
@@ -10,7 +10,7 @@
     22b25e0 Consolidated Util and MutableAnnotationUtils classes into existing AsmUtils
     7f96f57 polishing
     
-呀~来对比一下来自同一仓库的最近的提交：
+来对比一下来自同一仓库的最近的提交：
 
     $ git log --oneline -5 --author pwebb --before "Sat Aug 30 2014"
     5ba3db6 Fix failing CompositePropertySourceTests
@@ -22,7 +22,7 @@
 你更喜欢看哪个？
 前者的提交记录在长度和形式上都相差甚远；后者在这些方面保持了简介和一致。前者是在不经思考的情况下提交的，而后者的提交却从来不是偶然。
 
-虽然大多数仓库的日志看起来都和前者一样，但也有一些例外的。 [Linux kernel](https://github.com/torvalds/linux/commits/master) 和[git仓库](https://github.com/git/git/commits/master)自己就是很好的例子。也可以看一下[Springboot](https://github.com/spring-projects/spring-boot/commits/master)或者 [Tim Pope](https://github.com/tpope/vim-pathogen/commits/master)维护的任何仓库。
+虽然大多数仓库的日志看起来都和前者一样，但也有一些例外的。 [Linux kernel](https://github.com/torvalds/linux/commits/master) 和[git仓库](https://github.com/git/git/commits/master)自己就是很好的例子。也可以看一下[spring-boot](https://github.com/spring-projects/spring-boot/commits/master)或者 [Tim Pope](https://github.com/tpope/vim-pathogen/commits/master)维护的任何仓库。
 
 这些仓库的贡献者知道对于后来的开发者（也恰恰是以后的自己）来说，风格良好的提交信息是在上下文中传达变化的最好方式。Diff命令可以告诉你什么地方改变了,但是只有提交信息可以恰当的告诉你这些改变的原因。Peter Hutterer 很好的阐述了这一点：
 
@@ -42,7 +42,7 @@
 
 幸运的是，这里有一些良好的习惯使你的提交信息变得更加地道。事实上，许多这些习惯都已经被git命令行函数预设了。你不需要再重复发明。你只要遵循下面的[七条规则](http://chris.beams.io/posts/git-commit/#seven-rules)，然后像一个专业人员一样用你的方式去提交。
 
-Git提交信息格式的7条优良规范
+## Git提交信息格式的7条优良规范
 
 >Keep in mind: 
 [This](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) [has](http://www.git-scm.com/book/en/Distributed-Git-Contributing-to-a-Project#Commit-Guidelines)
