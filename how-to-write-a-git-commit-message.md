@@ -133,14 +133,14 @@
 	 MCP turned out to be evil and had become intent on world domination.
 	 This commit throws Tron's disc into MCP (causing its deresolution)
 	 and turns it back into a chess game.
-
+```
 当采用`git log --oneline`，其只能打印出主题行：
 	
 	$ git log --oneline
 	42e769 Derezz the master control program
 
 或者`git shortlog`，它可以显示一系列的用户提交记录，但是也仅仅展示简洁的主题行信息：
-
+```bash
 	$ git shortlog
 	Kevin Flynn (1):
       Derezz the master control program
