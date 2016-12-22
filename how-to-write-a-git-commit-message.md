@@ -3,22 +3,25 @@
 
 如果你随机的去浏览一下git仓库的日志，你会发现提交信息都或多或少有点糟糕。举个例子，看一下下面这些[“哥儿们儿”](https://github.com/spring-projects/spring-framework/commits/e5f4b49?author=cbeams)，它们来自于我早期对Spring的提交：
 
-    $ git log --oneline -5 --author cbeams --before "Fri Mar 26 2009"
-    e5f4b49 Re-adding ConfigurationPostProcessorTests after its brief removal in r814. @Ignore-ing the testCglibClassesAreLoadedJustInTimeForEnhancement() method as it turns out this was one of the culprits in the recent build breakage. The classloader hacking causes subtle downstream effects, breaking unrelated tests. The test method is still useful, but should only be run on a manual basis to ensure CGLIB is not prematurely classloaded, and should not be run as part of the automated build.
-    2db0f12 fixed two build-breaking issues: + reverted ClassMetadataReadingVisitor to revision 794 + eliminated ConfigurationPostProcessorTests until further investigation determines why it causes downstream tests to fail (such as the seemingly unrelated ClassPathXmlApplicationContextTests)
-    147709f Tweaks to package-info.java files
-    22b25e0 Consolidated Util and MutableAnnotationUtils classes into existing AsmUtils
-    7f96f57 polishing
+   ```bash    
+   $ git log --oneline -5 --author cbeams --before "Fri Mar 26 2009"
+   e5f4b49 Re-adding ConfigurationPostProcessorTests after its brief removal in r814. @Ignore-ing the testCglibClassesAreLoadedJustInTimeForEnhancement() method as it turns out this was one of the culprits in the recent build breakage. The classloader hacking causes subtle downstream effects, breaking unrelated tests. The test method is still useful, but should only be run on a manual basis to ensure CGLIB is not prematurely classloaded, and should not be run as part of the automated build.
+   2db0f12 fixed two build-breaking issues: + reverted ClassMetadataReadingVisitor to revision 794 + eliminated ConfigurationPostProcessorTests until further investigation determines why it causes downstream tests to fail (such as the seemingly unrelated ClassPathXmlApplicationContextTests)
+   147709f Tweaks to package-info.java files
+   22b25e0 Consolidated Util and MutableAnnotationUtils classes into existing AsmUtils
+   7f96f57 polishing
+   ```
     
 来对比一下来自同一仓库的最近的提交：
 
+   ```bash
     $ git log --oneline -5 --author pwebb --before "Sat Aug 30 2014"
     5ba3db6 Fix failing CompositePropertySourceTests
     84564a0 Rework @PropertySource early parsing logic
     e142fd1 Add tests for ImportSelector meta-data
     887815f Update docbook dependency and generate epub
     ac8326d Polish mockito usage
-    
+   ```
 你更喜欢看哪个？
 前者的提交记录在长度和形式上都相差甚远；后者在这些方面保持了简介和一致。前者是在不经思考的情况下提交的，而后者的提交却从来不是偶然。
 
@@ -103,7 +106,9 @@
 
 如果你在git上想提交上面的说明信息，那么可以采用`-m`将其附加到`git commit`之上。
 
+```bash
 	$ git commit -m"Fix typo in introduction to user guide"
+```
 
 然而，当一个提交需要较多的解释和说明的时候，你需要书写一个详情，例如：
 
@@ -117,6 +122,7 @@
 
 任何情况下，将主题和详情分离对于浏览查看日志都是有益的。以下是完整的日志体：
 
+```bash
 	$ git log
 	commit 42e769bdf4894310333942ffc5a15151222a87be
 	Author: Kevin Flynn <kevin@flynnsarcade.com>
@@ -149,6 +155,7 @@
 
 	Walter Gibbs (1):
       Introduce protoype chess program
+```
 
 当然，在不同的git语境中主题行和详情的差异还有很多，但是如果没有空行将其隔开，它们中任何一个都将工作不正常。
 
@@ -249,6 +256,7 @@ git不会自动去折叠文字。因此当你书写提交信息的详情时，�
 ###7.利用详情去说明三点： 是什么 为什么 如何做
 这个[比特币核心代码](https://github.com/bitcoin/bitcoin/commit/eb0b56b19017ab5c16c745e6da39c53126924ed6)的提交记录是解释改变了什么和为什么改变的一个很好的例子：
 
+```bash
 	commit eb0b56b19017ab5c16c745e6da39c53126924ed6
 	Author: Pieter Wuille <pieter.wuille@gmail.com>
 	Date:   Fri Aug 1 22:57:55 2014 +0200
@@ -270,7 +278,9 @@ git不会自动去折叠文字。因此当你书写提交信息的详情时，�
 
 	   fail(), clear(n) and exceptions() are just never called. Delete
 	them.
-	
+```
+
+
 看看`full diff`，想想因为作者提供的这个提交说明，为他的同伴和未来的代码提交者节约了多少时间。如果他没有这么做，那么有些信息可能永远的无法找回了。
 通常，你可以忽略如何进行修改的细节，因为代码通常是不言自明的（如果代码过于复杂以至于需要进行必要的解释，这就需要进行代码注释了）。无论如何，请将重点放在说明你为什么要进行修改，请说明修改前的运行状态（以及存在的问题），当前的运行状态和你为什么选择该方式进行修改。
 
