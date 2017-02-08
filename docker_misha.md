@@ -5,11 +5,14 @@
 `ps`命令能够列出所有正在运行的进程，以及创建它的镜像的名称，正在运行的指令，软件监听的端口和容器名称。
 
 	CONTAINER ID    IMAGE     COMMAND      
-	30645f307114    est-mysql “/entrypoint.sh mysql”	PORTS       NAMES
-	3306/tcp    serene_brahmagupta从上面的执行进程结果来看，容器名称为serene_brahmagupta。这是一个自动生成的名字，其维护便利性受到质疑。因此明确的指定容器名称被认为是一种更好的方式，通常使用`--name`选项在容器启动的时候提供其名称。
+	30645f307114    est-mysql “/entrypoint.sh mysql”
+	PORTS       NAMES
+	3306/tcp    serene_brahmagupta
+从上面的执行进程结果来看，容器名称为serene_brahmagupta。这是一个自动生成的名字，其维护便利性受到质疑。因此明确的指定容器名称被认为是一种更好的方式，通常使用`--name`选项在容器启动的时候提供其名称。
 
 	docker run --name my-est-mysql -e MYSQL_ROOT_ 
-	↳PASSWORD=root+1 -d est-mysql你会注意到ps命令的输出内容中该容器监听端口3306，但是这并不意味着你能够在本地运用MySQL的命令行或者MySQL的工作台直接和数据库进行交互了，因为该端口只能在运行它的安全的docker环境中才能够使用。为了使得该端口在该环境外部可用，你需要使用`-p`选项将端口映射出去。
+	↳PASSWORD=root+1 -d est-mysql
+你会注意到ps命令的输出内容中该容器监听端口3306，但是这并不意味着你能够在本地运用MySQL的命令行或者MySQL的工作台直接和数据库进行交互了，因为该端口只能在运行它的安全的docker环境中才能够使用。为了使得该端口在该环境外部可用，你需要使用`-p`选项将端口映射出去。
 
 	docker run --name my-est-mysql -e MYSQL_ROOT_ 
 	↳PASSWORD=root+1 -p 3306:3306 -d est-mysql
@@ -19,7 +22,8 @@
 	docker-machine ip default
 使用default作为machine的名称，默认的machine安装自Docker Toolbox，你将会获得运行该容器的machine的IP地址。利用这个IP地址，你就能够利用本地MySQL命令行去链接MySQL了。
 
-	mysql -h 192.168.99.100 -u root -proot+1##暂停和启动容器
+	mysql -h 192.168.99.100 -u root -proot+1
+##暂停和启动容器
 现在你有一个运行着的容器了，接下来你可以使用Docker的`stop`命令和容器名称去暂停它。
 
 	docker stop my-est-mysql
@@ -79,5 +83,130 @@
 ###HOT TIP
 如果你希望在包含的路径中排除部分文件或者目录，可以使用`.dockerignore file`来实现。
 
-##说明
+## 指令
+指令会按照Dockerfile中的顺序被执行。Dockerfile同样可以包含以字符#开头的行命令，下表包含了一些可用的命令：
 
+命令 | 描述
+--- | ---
+FROM | 这条指令必须位于Dockerfile的第一行，它指定了基础镜像
+MAINTAINER |  指定了镜像作者的信息
+RUN |  执行一条linux命令用于配置和安装
+ENTRYPOINT |  启动容器的脚本或应用(最后执行)，它可以让容器变成可执行的应用
+CMD |  以JSON数组的格式为ENTRYPOINT提供默认参数
+LABEL |  镜像元信息，以键值对的形式
+ENV |  设置环境变量
+COPY |  将文件拷贝至容器内
+ADD |  COPY的替代选择
+WORKDIR |  为RUN,ENTRYPOINT,CMD,COPY,和（或）ADD指令设置工作目录
+EXPOSR |  容器将要监听的端口
+VOLUME |  创建一个挂载点
+USER |  运行RUN，CMD，和（或）ENTRYPOINT指令的用户
+
+## DOCKERFILE 示例
+这是MySQL 5.5官方版的一个示例Dockerfile,使用了许多可用的命令，你可以在 https://github.com/docker-library/mysql/blob/5836bc9af9deb67b68c32bebad09a0f7513da36e/5.5/找到它。
+
+```bash
+FROM debian:jessie
+
+# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
+RUN groupadd -r mysql && useradd -r -g mysql mysql
+
+RUN mkdir /docker-entrypoint-initdb.d
+
+# FATAL ERROR: please install the following Perl modules before executing /usr/local/mysql/scripts/mysql_install_db:
+# File::Basename
+# File::Copy
+# Sys::Hostname
+# Data::Dumper
+RUN apt-get update && apt-get install -y perl --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+# mysqld: error while loading shared libraries: libaio.so.1: cannot open shared object file: No such file or directory
+RUN apt-get update && apt-get install -y libaio1 && rm -rf /var/lib/apt/lists/*
+
+# gpg: key 5072E1F5: public key "MySQL Release Engineering <mysql-build@oss.oracle.com>" imported
+RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys A4A9406876FCBD3C456770C88C718D3B5072E1F5
+
+ENV MYSQL_MAJOR 5.5
+ENV MYSQL_VERSION 5.5.45
+
+# note: we're pulling the *.asc file from mysql.he.net instead of dev.mysql.com because the official mirror 404s that file for whatever reason - maybe it's at a different path?
+RUN apt-get update && apt-get install -y curl --no-install-recommends && rm -rf /var/lib/apt/lists/* \
+	&& curl -SL "http://dev.mysql.com/get/Downloads/MySQL-$MYSQL_MAJOR/mysql-$MYSQL_VERSION-linux2.6-x86_64.tar.gz" -o mysql.tar.gz \
+	&& curl -SL "http://mysql.he.net/Downloads/MySQL-$MYSQL_MAJOR/mysql-$MYSQL_VERSION-linux2.6-x86_64.tar.gz.asc" -o mysql.tar.gz.asc \
+	&& apt-get purge -y --auto-remove curl \
+	&& gpg --verify mysql.tar.gz.asc \
+	&& mkdir /usr/local/mysql \
+	&& tar -xzf mysql.tar.gz -C /usr/local/mysql --strip-components=1 \
+	&& rm mysql.tar.gz* \
+	&& rm -rf /usr/local/mysql/mysql-test /usr/local/mysql/sql-bench \
+	&& rm -rf /usr/local/mysql/bin/*-debug /usr/local/mysql/bin/*_embedded \
+	&& find /usr/local/mysql -type f -name "*.a" -delete \
+	&& apt-get update && apt-get install -y binutils && rm -rf /var/lib/apt/lists/* \
+	&& { find /usr/local/mysql -type f -executable -exec strip --strip-all '{}' + || true; } \
+	&& apt-get purge -y --auto-remove binutils
+ENV PATH $PATH:/usr/local/mysql/bin:/usr/local/mysql/scripts
+
+# replicate some of the way the APT package configuration works
+# this is only for 5.5 since it doesn't have an APT repo, and will go away when 5.5 does
+RUN mkdir -p /etc/mysql/conf.d \
+	&& { \
+		echo '[mysqld]'; \
+		echo 'skip-host-cache'; \
+		echo 'skip-name-resolve'; \
+		echo 'user = mysql'; \
+		echo 'datadir = /var/lib/mysql'; \
+		echo '!includedir /etc/mysql/conf.d/'; \
+	} > /etc/mysql/my.cnf
+
+VOLUME /var/lib/mysql
+
+COPY docker-entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
+EXPOSE 3306
+CMD ["mysqld"]
+
+```
+这个示例的Dockerfile会产生以下动作：
+
+* 继承一个已存在的名叫debian:jessie的Debian镜像
+* 使用RUN指令去配置镜像：增加用户组，创建目录以及使用Debian的包管理工具apt-get安装必要的软件
+* 运行gpg对PGP进行加密
+* 使用ENV指令去设置该镜像所代表的MYSQL的最高和最低版本
+* 运行一长行命令去安装和配置系统，后面紧接着另外一个环境变量去设置系统PATH
+* 使用RUN指令去创建配置文件
+* 使用VOLUME命令去映射一个文件系统
+* 使用COPY命令去复制和重命名一个脚本，它将在容器启动的时候运行。ENTRYPOINT指定了该脚本。
+* 使用EXPOSE指令声明端口3306作为MYSQL的标准端口
+* 使用CMD指令去指定容器启动时传给ENTRYPOINT的命令行参数，字符串mysqld
+
+## DOCKER MACHINE
+Docker Machine是另外一个命令行工具用以管理一个或多个本地或远程服务器。本地机器通常运行在不同的VirtualBox实例中。远程机器通常运行在诸如Amazon Web Services (AWS), Digital Ocean, or Microsoft Azure提供的云服务器中。
+
+### 创建本地 Machine
+安装Docker Toolbox的同时，你将会得到一个名叫"default"的默认Docker Machine。它很容易上手，但在一定程度上，你需要多个 Machine分割你将要运行的不同容器。你可以使用``docker-machine create``命令：
+```bash
+docker-machine create -d virtualbox qa
+```
+它将使用一个名叫qa的VirtualBox镜像去新建一个本地Machine
+
+### LIST MACHINES
+如果你需要查看你所配置的所有machine，可以使用``docker-machine ls``命令：
+```bash
+docker-machine ls
+```
+
+### 启动和停止 Machine
+Docker Machines可以用``docker-machine start``启动：
+```bash
+docker-machine start qa
+```
+一旦machine启动起来了，你需要去配置docker命令行，以便和docker守护进程进行交互。你可以使用``docker-machine env``命令进行此动作并使用eval对其求值。
+```bash
+docker-machine env qa
+eval “$(docker-machine env qa)”
+```
+使用``docker-machine stop``去停止machine。
+
+### HOT TIP
+docker-machine start 和 stop命令实际上会启动或停止VirtualBox VMs。如果你开启了VirtualBox管理器，你可以在运行上述命令的时候看到VM的变化。
