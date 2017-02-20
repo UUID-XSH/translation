@@ -206,7 +206,7 @@ USB设备的问题在于，当你打开连接时，来自先前连接的数据�
 下面我列出一种遵循LSP原则的解决方案：
 
 ```
-	Public Interface IDevice{
+    Public Interface IDevice{
 		Void Open();
 		Void Refresh();
 		Void Read();
@@ -222,7 +222,9 @@ USB设备的问题在于，当你打开连接时，来自先前连接的数据�
 		aDevice.acquire()
 		//Remaining code..
 	}
-```	
+```
+
+
 现在客户端不再依赖于设备的具体实现了，因此，这个方案中，我们的接口（设备）对于客户端来说是完备的了。
 
 从面向对象分析的视角来看，有另一个不同的角度去解释LSP原则。[这里获取免费的面向对象分析的介绍](http://www.objectorienteddesign.org/)。总的来说，通过OOA，类和它们的层级结构将会是我们软件设计需要考虑的一个部分。
@@ -230,6 +232,7 @@ USB设备的问题在于，当你打开连接时，来自先前连接的数据�
 当我们考虑类和层级结构的时候我们可能会设计一些违反LSP规则的类。
 
 让我们思考一个古典的例子，即长方形和正方形。一开始看起来正方形是长方形的特例，于是一个乐观的程序设计师将绘制出下面的层级继承关系：
+
 
 ```
 	Public class Rectangle{
@@ -303,4 +306,198 @@ USB设备的问题在于，当你打开连接时，来自先前连接的数据�
 	}
 ```
 通过这个方式，我减少了基类中的函数数目，让它变得更轻了。
+
+
+# 依赖反转(DIP)
+<p>这条原则是对上面所讨论的原则的一个概述。
+<p>在我们给出DIP的书面定义之前，请让我介绍一个与此紧密相连的一条原则，以帮助我们理解DIP。
+<p>这条原则是：面向接口编程，而不是面向实现编程。
+
+<p>考虑下面这个简单的例子：
+
+```
+Class PCIDevice{
+    Void open(){}
+    Void close(){}
+}
+Static void Main(){
+    PCIDevice aDevice = new PCIDevice();
+    aDevice.open();
+    //do some work
+    aDevice.close();
+}
+```
+<p>上面的示例代码违背了面向接口编程，因为我们正在操作的引用是具体的类对象PCIDevice，下面的代码则遵循了这个原则：
+
+```
+Interface IDevice{
+    Void open();
+    Void close();
+}
+Class PCIDevice implements IDevice{
+    Void open(){ // PCI device opening code }
+    Void close(){ // PCI Device closing code }
+}
+Static void Main(){
+    IDevice aDevice = new PCIDevice();
+    aDevice.open();
+    //do some work
+    aDevice.close();
+}
+```
+<p> 所以这条原则很容易去遵循。依赖反转与此类似，但需要我们做的更多。
+
+<p>依赖反转：高级模块不应该依赖低级模块。二者应该依赖于抽象。
+
+<p>你可以把"两者都应该依赖于抽象"简单的理解成面向接口编程。那么什么是高级模块和低级模块？
+
+<p>为了这条原则的第一部分，我们需要理解高级模块和低级模块实际上是什么。看如下代码：
+
+```
+Class TransferManager{
+public void TransferData(USBExternalDevice usbExternalDeviceObj,SSDDrive  ssdDriveObj){
+            Byte[] dataBytes = usbExternalDeviceObj.readData();
+           // work on dataBytes e.g compress, encrypt etc..
+            ssdDriveObj.WrtieData(dataBytes);
+        }
+}
+Class USBExternalDevice{
+Public byte[] readData(){
+        }
+}
+Class SSDDrive{
+Public void WriteData(byte[] data){
+}
+}
+```
+<p>上面的代码有三个类，TransferManager代表高级模块，因为它在一个方法中用了其它两个类。因此其他两个类则是低级模块。
+
+<p>上面的代码中，高级模块是直接使用低级模块的(没有任何抽象)，因此违背了依赖反转原则。
+
+<p>违背了依赖反转这条原则会让你的软件系统变得难以更改。比如，如果你想增加其他的外部设备，你将不得不
+改变高级模块。因此你的高级模块将会依赖于低级模块，依赖会让代码变得难以改变。
+
+<p>如果你理解了上面的原则"面向接口编程"，那么就很容易解决这个问题:
+
+```
+Class USBExternalDevice implements IExternalDevice{
+Public byte[] readData(){
+}
+}
+Class SSDDrive implements IInternalDevice{
+Public void WriteData(byte[] data){
+}
+}
+Class TransferManager implements ITransferManager{
+public void Transfer(IExternalDevice externalDeviceObj, IInternalDevice internalDeviceObj){
+           Byte[] dataBytes = externalDeviceObj.readData();
+           // work on dataBytes e.g compress, encrypt etc..
+           internalDeviceObj.WrtieData(dataBytes);
+        }
+}
+Interface IExternalDevice{
+        Public byte[] readData();
+}
+Interfce IInternalDevice{
+Public void WriteData(byte[] data);
+}
+Interface ITransferManager {
+public void Transfer(IExternalDevice usbExternalDeviceObj,SSDDrive  IInternalDevice);
+}
+```
+在上面的代码中，高级模块和低级模块都依赖于抽象，符合了依赖反转原则。
+
+# Hollywood原则
+<p>这条原则和依赖反转原则类似：不要调用我们，我们会给你。
+
+<p>这意味着高级组件可以以一种互不依赖的方式去支配低级组件。
+
+<p>这条原则可以防止依赖恶化。依赖恶化发生在每个组件都依赖于其他各个组件。换句话说，依赖恶化是让依赖发生在各个方向(向上，横向，向下)。
+Hollywood原则可以让我们时依赖只向一个方向。
+
+<p>DIP和Hollywood之间的差异给了我们一条通用原则：无论是高级组件还是低级组件，都要依赖于抽象而不是具体的类。另一方面，Hollywood原则
+强调了高级组件和低级组件应该以不产生依赖的方式交互。
+
+[点此学习更多关于面向对象编程的知识](http://www.objectorienteddesign.org/)
+
+
+# 多态
+<p>什么？多态也是设计原则？对的，多态是任何面向对象语言都要提供的基础特征，它可以让父类的引用指向子类。
+
+<p>它同时也是GRASP的设计原则之一。这条原则为你在面向对象设计中提供了知道方针。
+
+
+<p>这条原则严格限制了运行时类型信息的使用(RTTI)。在C#中，我们用如下方式实现RTTI：
+
+```
+if(aDevice.GetType() == typeof(USBDevice)){
+//This type is of USBDEvice
+}
+```
+<p>在java中，RTTI由getClass()或者instanceOf()完成：
+
+```
+if(aDevice.getClass() == USBDevice.class){
+    // Implement USBDevice
+     Byte[] data = USBDeviceObj.ReadUART32();
+}
+
+```
+<p>如果你曾在你的项目中编写了类似的代码，那么现在是时候重构你的代码以符合多态原则，看如下例图:
+
+<img src="http://www.objectorienteddesign.org/wp-content/uploads/2016/12/PolymorphismDiagram.jpg"/>
+
+<p>在此我在接口中生成了read方法，然后委托他们的实现类去实现该方法，现在，我只用方法Read:
+
+```
+//RefactoreCode
+IDevice aDevice = dm.getDeviceObject();
+aDevice.Read();
+```
+getDeviceObject()的实现来自哪里？这是我们即将要讨论的创造者原则和信息专家原则
+
+# 信息专家原则（Information Expert）
+
+<p>这是GRASP的一条简易原则，它在如何给予类权限方面给我们提供指导。它表明你应该在一个类有足够的信息去满足某项职能的时候才能赋予它该只能。考虑下面的类：
+
+<img src="http://www.objectorienteddesign.org/wp-content/uploads/2016/12/InformationExpert.jpg"/>
+
+<p>在我们的场景中，一个模式全速启动（每秒600次循环），而用户的显示器以降低的速度更新。那么，我将不得不指定一个职责以决定下一帧需不需要展示。
+
+<p>哪一个类负责担任这项职责？我有两个选择:Simulation类或者SpeedControl类。
+
+<p>既然SpeedControl类有关于当前顺序下已经被展示的帧，那么依据信息专家原则，SpeedControl负责该职责。
+
+
+# 创造者原则
+<p>创造者是GRASP中负责决定某类负责创造另一个类的实例。对象的创造是非常重要的，因此有原则的去决定创造者的角色是很有用的。
+
+<p>根据Larman所言，类B在以下任何一个条件为真时，应该负担起对A的创造：
+
+* B包含A
+* B聚合A
+* B含有初始化A所需有的信息
+* B记录A
+* B闭合式的使用A
+
+<p>在我们多态的例子中，我使用了信息专家原则和创造者原则，使得DeviceManager类得到创建Device对象的职责。
+这是因为DeviceManger有创建Device所需要的信息。
+
+# 纯制造原则
+
+<p>为了理解纯制造，首先你要理解面向对象分析（OOA）
+
+<p>面向对象分析是一个通过问题领域去确定类的过程。举个例子，银行系统的领域模型应该包含诸如类Account, Branch, Cash, Check, Transaction
+等等。这些领域类需要存储关于客户的信息。实现该原则的一个选择是把数据的存储委托给领域类。这个选择会降低领域类的粘性。
+最后这个选择违背了SRP原则。
+
+[点此学习更多关于面向对象分析的知识](http://www.objectorienteddesign.org/)
+
+<p>另一个选择是引入其他不含任何领域概念的类。在银行系统中，我们可以引入被称为持久化提供者的类。这个类不带便任何领域实体。其目的是为了处理存储方法。因此
+PersistenceProvider是符合纯制造原则的。
+
+# 控制器原则
+<p>当我开始开发软件系统时，我最常写的就是使用java swing组件，
+
+
 
