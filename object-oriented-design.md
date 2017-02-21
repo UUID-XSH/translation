@@ -1,7 +1,7 @@
 #SOLID, GRASP和其他面向对象设计的基本原则
 ##学习面向对象的设计原则，并牢牢掌握SOLID和GRASP规则背后的思想
 
-（by Muhammad Umair  ·  Feb. 13, 17 · Web Dev Zone）
+（by Muhammad Umair  ·  Feb. 13, 17 · Web Dev Zone，[原文链接](https://dzone.com/articles/solid-grasp-and-other-basic-principles-of-object-o) ）
 
 今天开始编程，体验与Qlik合作带来的驱动数据应用开发的强大引擎。
 
@@ -17,7 +17,7 @@
 
 我曾经编写过难以阅读，难以拓展，并且充满了坏味道的代码。在经历了大约6个月的开发学习后，才终于有了一些改善。因此，开发过程中的经历对于理解项目代码质量来说是至关重要的。
 
-高级开发工程师，他们理解什么是代码质量，因此不会有上述问题。他们感到自豪，因为可以写出初级开发者所不能及的高质量代码。因此高级开发者和专家们总结出一系列原则，以供初级开发者们学习，便于他们写出高质量的代码。如果你想要写一些自己在开发中的总结经验，可以在这里填写 [成为专家](https://simpleprogrammer.com/2016/12/28/software-design-patterns-hiding/)
+高级开发工程师，他们理解什么是代码质量，因此不会有上述问题。他们感到自豪，因为可以写出初级开发者所不能及的高质量代码。因此高级开发者和专家们总结出一系列原则，以供初级开发者们学习，便于他们写出高质量的代码。
 
 在本篇文章中，我将阐述SOLID原则，这些原则由Robert C. Martin提出，同时我也将阐述GRASP原则，而这一部分由Craig Larman和一些面向对象的设计原则构成，我将用我个人的经验所得来举例，因此你不会看到经常在书本上被滥用的Animal和Duck的例子。
 
@@ -33,21 +33,19 @@
 6. Interface Segregation Principle (SOLID) 接口分离原则
 7. Dependency Inversion Principle (SOLID) 依赖倒置原则
 8. Program to an Interface, not to an Implementation 面向接口编程
-9. Hollywood Principle 控制反转
+9. Hollywood Principle 好莱坞原则
 10. Polymorphism (GRASP) 多态模式
 11. Information Expert (GRASP) 信息专家模式
 12. Creator (GRASP) 创造者模式
 13. Pure Fabrication (GRASP) 纯虚构模式
 14. Controller (GRASP) 控制器模式
-15. Favor composition over inheritance
+15. Favor composition over inheritance 组合优于继承
 16. Indirection (GRASP) 中介模式
 
 在我早期职业生涯中我经常犯一个错误，总说试图一次性使用这些所有的原则。这是一个巨大的认知错误，我希望你引以为戒。
-
-[点击这里下载免费报告](http://eepurl.com/ccscu1)
  
-#Single Responsibility Principle 单一功能原则
-单一功能原则（SRP）定义：
+#Single Responsibility Principle（单一责任原则）
+单一责任原则（SRP）定义：
 
 **每个类应该只负责一种单一的功能**
 
@@ -75,7 +73,7 @@
 
 另一方面，考虑一个链接数据库的GUI类，通过HTTP协议链接远程客户端并处理屏幕布局。这个GUI类依赖了太多的类，很明显违反了低耦合原则。如果不包含所有的相关类则该类不能被重用，任何对数据库组件的改变都将改变这个GUI类。
 
-#Open-Closed Principle 开闭原则
+#Open-Closed Principle（开闭原则）
 
 开闭原则的描述为：
 
@@ -103,7 +101,7 @@
 	 }
 	}
 ```
-在这个示例中，客户端读取数据（ds.Read()）来自于网络数据流。如果我想要扩展这个客户端的功能使之能够读取其他数据流的内容，例如PCI数据流，那么我需要添加另外继承自DataStream的子类，如下所示：
+在这个示例中，客户端读取（ds.Read()）来自于网络数据流。如果我想要扩展这个客户端的功能使之能够读取其他数据流的内容，例如PCI数据流，那么我需要添加另外继承自DataStream的子类，如下所示：
 
 ```	
 	Class PCIDataStream:DataStream{
@@ -118,7 +116,7 @@
 
 然而，你必须将这个原则应用于每一段代码吗？当然不，因为大部分的代码其实是不怎么变动的，你只需要战略性的将这个原则应用到那些你预计将来会有变动的代码片上即可。
 
-#Liskov Substitution Principle 里氏替换原则
+#Liskov Substitution Principle（里氏替换原则）
 
 里氏替换原则的描述为：
 
@@ -227,7 +225,7 @@ USB设备的问题在于，当你打开连接时，来自先前连接的数据�
 
 现在客户端不再依赖于设备的具体实现了，因此，这个方案中，我们的接口（设备）对于客户端来说是完备的了。
 
-从面向对象分析的视角来看，有另一个不同的角度去解释LSP原则。[这里获取免费的面向对象分析的介绍](http://www.objectorienteddesign.org/)。总的来说，通过OOA，类和它们的层级结构将会是我们软件设计需要考虑的一个部分。
+从面向对象分析的视角来看，有另一个不同的角度去解释LSP原则。总的来说，通过OOA，类和它们的层级结构将会是我们软件设计需要考虑的一个部分。
 
 当我们考虑类和层级结构的时候我们可能会设计一些违反LSP规则的类。
 
@@ -247,7 +245,7 @@ USB设备的问题在于，当你打开连接时，来自先前连接的数据�
 
 这个问题只能根据不同的使用场景和条件具体分析类来避免。因此如果你孤立的设计一个类很可能在实际运行中将会出错。就像我们的正方形和长方形那样，一开始认为很完美的关系设计，在不同的条件下，这种关系设计最终被认定并不符合我们软件正常运行的要求。
 
-#Interface Segregation Principle 接口隔离原则
+#Interface Segregation Principle（接口隔离原则）
 接口隔离原则（ISP）描述为：
 
 **客户端不应该被强迫依赖他们不使用的接口**
@@ -308,7 +306,7 @@ USB设备的问题在于，当你打开连接时，来自先前连接的数据�
 通过这个方式，我减少了基类中的函数数目，让它变得更轻了。
 
 
-# 依赖反转(DIP)
+# Dependency Inversion Principle（依赖反转）
 <p>这条原则是对上面所讨论的原则的一个概述。
 <p>在我们给出DIP的书面定义之前，请让我介绍一个与此紧密相连的一条原则，以帮助我们理解DIP。
 <p>这条原则是：面向接口编程，而不是面向实现编程。
@@ -407,7 +405,7 @@ public void Transfer(IExternalDevice usbExternalDeviceObj,SSDDrive  IInternalDev
 ```
 在上面的代码中，高级模块和低级模块都依赖于抽象，符合了依赖反转原则。
 
-# Hollywood原则
+# Hollywood（好莱坞原则）
 <p>这条原则和依赖反转原则类似：不要调用我们，我们会给你。
 
 <p>这意味着高级组件可以以一种互不依赖的方式去支配低级组件。
@@ -418,10 +416,7 @@ Hollywood原则可以让我们时依赖只向一个方向。
 <p>DIP和Hollywood之间的差异给了我们一条通用原则：无论是高级组件还是低级组件，都要依赖于抽象而不是具体的类。另一方面，Hollywood原则
 强调了高级组件和低级组件应该以不产生依赖的方式交互。
 
-[点此学习更多关于面向对象编程的知识](http://www.objectorienteddesign.org/)
-
-
-# 多态
+# Polymorphism（多态）
 <p>什么？多态也是设计原则？对的，多态是任何面向对象语言都要提供的基础特征，它可以让父类的引用指向子类。
 
 <p>它同时也是GRASP的设计原则之一。这条原则为你在面向对象设计中提供了知道方针。
@@ -456,7 +451,7 @@ aDevice.Read();
 ```
 getDeviceObject()的实现来自哪里？这是我们即将要讨论的创造者原则和信息专家原则
 
-# 信息专家原则（Information Expert）
+# Information Expert（信息专家原则）
 
 <p>这是GRASP的一条简易原则，它在如何给予类权限方面给我们提供指导。它表明你应该在一个类有足够的信息去满足某项职能的时候才能赋予它该只能。考虑下面的类：
 
@@ -469,7 +464,7 @@ getDeviceObject()的实现来自哪里？这是我们即将要讨论的创造者
 <p>既然SpeedControl类有关于当前顺序下已经被展示的帧，那么依据信息专家原则，SpeedControl负责该职责。
 
 
-# 创造者原则
+# Creator（创造者原则）
 <p>创造者是GRASP中负责决定某类负责创造另一个类的实例。对象的创造是非常重要的，因此有原则的去决定创造者的角色是很有用的。
 
 <p>根据Larman所言，类B在以下任何一个条件为真时，应该负担起对A的创造：
@@ -483,7 +478,7 @@ getDeviceObject()的实现来自哪里？这是我们即将要讨论的创造者
 <p>在我们多态的例子中，我使用了信息专家原则和创造者原则，使得DeviceManager类得到创建Device对象的职责。
 这是因为DeviceManger有创建Device所需要的信息。
 
-# 纯制造原则
+# Pure Fabrication（纯虚构模式）
 
 <p>为了理解纯制造，首先你要理解面向对象分析（OOA）
 
@@ -491,12 +486,10 @@ getDeviceObject()的实现来自哪里？这是我们即将要讨论的创造者
 等等。这些领域类需要存储关于客户的信息。实现该原则的一个选择是把数据的存储委托给领域类。这个选择会降低领域类的粘性。
 最后这个选择违背了SRP原则。
 
-[点此学习更多关于面向对象分析的知识](http://www.objectorienteddesign.org/)
-
 <p>另一个选择是引入其他不含任何领域概念的类。在银行系统中，我们可以引入被称为持久化提供者的类。这个类不带便任何领域实体。其目的是为了处理存储方法。因此
 PersistenceProvider是符合纯制造原则的。
 
-# 控制器原则
+# Controller（控制器原则）
 <p>当我开始开发软件系统时，我最常写的就是使用java swing组件，大部分逻辑都在监听器后面。
 
 <p>然后我学习了有关领域类模型的知识。也由此将我的逻辑从监听器移到领域类。然而我直接从监听器里调用领域对象，这就使得GUI组件(监听器)和领域模型之间产生了依赖。
@@ -515,7 +508,7 @@ PersistenceProvider是符合纯制造原则的。
 
 <p>通过使用控制器原则，会使得你在增加其他用户接口（如命令行接口或者web接口）变得更加灵活。
 
-# 组合优于继承原则
+# Favor Composition Over Inheritance（组合优于继承原则）
 
 <p>在面向对象编程中，基本上有两种扩展已有代码功能的方法，第一个是继承。
 
@@ -547,7 +540,7 @@ clientData.FormatStream();
 <p>如此一来，我就可以根据的想要的行为来提供类的实例，这个特征使得类的总数下降了，最终保证了可维护性。因此组合优于继承将会减少不可维护问题的发生，并且让你能更加灵活的在运行时设定你的行为。
 
 
-# 间接原则
+# Indirection（间接原则）
 
 <p>这个原则回答了一个问题：你如何使对象以解耦的方式进行交互。答案是：将交互的职责交给中间对象，使得相关组件的耦合度降低。
 
