@@ -519,6 +519,57 @@ PersistenceProvider是符合纯制造原则的。
 
 <p>在面向对象编程中，基本上有两种扩展已有代码功能的方法，第一个是继承。
 
-<p>第二个方法是组合，用编程术语来说。
+<p>第二个方法是组合，用编程术语来说，你可以通过获取对象的一个引用来扩展这个对象的功能。组合的一个很有用的特征是它的行为可以在运行时才设定。而在继承中，你只有在编译器才能确定它的行为。我们将通过多个例子来说明这一点。
+
+<p>当我是一个新手，我通过集成来扩展行为，如下：
+
+<img src="http://www.objectorienteddesign.org/wp-content/uploads/2016/12/FavorCompositionOverInheritance1.jpg"/>
+
+<p>最初，我只知道将要处理一段数据输入流，而数据有两种类型。过了几个星期之后，我意识到数据的字节顺序需要被处理。
+因此按照如下图例改变了类设计：
+<img src="http://www.objectorienteddesign.org/wp-content/uploads/2016/12/FavorCompositionOverInheritance2.jpg"/>
+
+<p>之后，一个新的变量被增加到需求中。这次我需要处理数据的极性，极性有两种：Stream A, StreamB，流有很多种字节顺序，如此一来，类就爆炸了。我将不得不去维护
+一大批类。
+
+<p>如果我使用组合来处理相同的问题，类设计如下：
+
+<img src="http://www.objectorienteddesign.org/wp-content/uploads/2016/12/FavorCompositionOverInheritance3.jpg"/>
+
+<p>我新增了一些类，然后在我的代码中使用它们的引用：
+
+```
+clientData.setPolarity(new PolarityOfTypeA); // or clientData.setPolarity(new PolarityOfTypeB)
+clientData.FormatPolarity;
+clientData.setEndianness(new LittleEndiannes());// setting the behavior at run-time
+clientData.FormatStream();
+```
+<p>如此一来，我就可以根据的想要的行为来提供类的实例，这个特征使得类的总数下降了，最终保证了可维护性。因此组合优于继承将会减少不可维护问题的发生，并且让你能更加灵活的在运行时设定你的行为。
+
+
+# 间接原则
+
+<p>这个原则回答了一个问题：你如何使对象以解耦的方式进行交互。答案是：将交互的职责交给中间对象，使得相关组件的耦合度降低。
+
+<p>例如，一个软件应用在多个配置和选择下都可以工作。要将领域代码与配置分离，需要添加一个特定的类，如下面的列表所示：
+
+
+
+```
+Public Configuration{
+  public int GetFrameLength(){
+    // implementation
+  }
+  public string GetNextFileName(){
+  }
+ // Remaining configuration methods
+}
+```
+
+<p>这样，如果任何领域对象需要读取某个配置，只要让它去请求Configuration对象即可。因此，主要代码与配置代码完成了解耦。
+
+<p>如果你已经阅读了纯构造原则，那么配置类就是该原则的一个实例。但是间接原则的目的是完成解耦，而纯构造原则的目的是为了维持领域模型的简介。
+
+<p>许多软件设计模式诸如适配器模式，外观模式以及观察者模式都是间接原则的更专业化的体现。
 
 
