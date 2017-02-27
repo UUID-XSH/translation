@@ -256,4 +256,4 @@ If you’re familiar with MongoDB you can inspect the database to see all the ev
 #About the Author
 #关于作者
 
-Ben Wilcock is a freelance Software Architect and Tech Lead with a passion for microservices, cloud and mobile applications. Ben has helped several FTSE 100 companies become more responsive, innovate, and agile. Ben is also a respected technology blogger who’s articles have featured in Java Code Geeks, InfoQ, Android Weekly and more. You can contact him on LinkedIn, Twitter and Github.
+Ben Wilcock 是一位自由软件架构师和技术主管，对微服务，云和移动应用充满热情。Ben曾经帮助过多家FTSE 100的公司变得更加可靠，创新和敏捷。 同时Ben也是一位受人尊敬的技术博客，其文章被收录于Java Code Geeks，InfoQ，Android Weekly等等。如果你存在任何问题，可以通过LinkedIn, Twitter 或者 Github 联系他。
