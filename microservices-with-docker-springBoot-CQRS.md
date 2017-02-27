@@ -59,7 +59,7 @@ CQRS架构模式中存在的高度自主和隔离给我们带来了一个有趣�
 
 The Command-side Microservice
 
-命令侧微服务
+##命令侧微服务
 
 Commands are “actions which change state“. The command-side microservice contains all the domain logic and business rules. Commands are used to add new Products, or to change their state. The execution of these commands on a particular Product results in `Events` being generated which are persisted by the Axon framework into MongoDB and propagated out to other processes (as many processes as you like) via RabbitMQ messaging.
 
@@ -75,7 +75,7 @@ In Domain Driven Design (DDD) the entity is often referred to as an `Aggregate` 
 
 The Query-side Microservice
 
-查询侧微服务
+##查询侧微服务
 
 The query-side microservice acts as an event-listener and a view. It listens for the `Events` being emitted by the command-side and processes them into whatever shape makes the most sense (for example a tabular view).
 
@@ -87,121 +87,173 @@ For more information, see the Axon documentation which describes how Axon brings
 
 Running the Demo
 
+#运行演示
+
 Running the demo code is easy, but you’ll need to have the following software installed on your machine first. For reference I’m using Ubuntu 16.04 as my OS, but I have also tested the app on the new Docker for Windows Beta successfully.
 
-Docker (I’m using v1.8.2)
-Docker-compose (I’m using v1.7.1)
+运行示例代码非常简单，但是首先需要在你的机器上安装以下软件。作为参考，我使用Ubuntu 16.04作为操作系统，但同时我也在新的Docker for Windows Beta版本上成功测试了该应用程序。
+
+* Docker (版本：v1.8.2)
+* Docker-compose (版本： v1.7.1)
+
 If you have both of these, you can run the demo by following the process outlined below.
 
-If you have either MongoDB or RabbitMQ already, please shut down those services before continuing in order to avoid port clashes.
-Step 1: Get the Docker-compose configuration file
+如果以上两个软件都已存在，那么你可以通过下面列出的步骤运行示例。
+
+>If you have either MongoDB or RabbitMQ already, please shut down those services before continuing in order to avoid port clashes.
+
+>如果您已经安装有MongoDB或RabbitMQ，请先关闭这些服务，然后再按照以下步骤继续，以避免端口冲突。
+
+##Step 1: Get the Docker-compose configuration file
+
+##步骤1：获取Docker-compose配置文件
 
 In a new empty folder, at the terminal execute the following command to download the latest docker-compose configuration file for this demo.
 
-1
+新建一个空文件夹，在终端执行下列命令以下载此示例的最新docker-compose配置文件。
+
+``
 $ wget https://raw.githubusercontent.com/benwilcock/microservice-sampler/master/docker-compose.yml
-Try not to change the file’s name – Docker defaults to looking for a file called ‘docker-compose.yml’. If you do change the name, use the -f switch in the following step.
-Step 2: Start the Microservices
+``
+
+>Try not to change the file’s name – Docker defaults to looking for a file called ‘docker-compose.yml’. If you do change the name, use the -f switch in the following step.
+
+>请不要尝试更改文件的名称———Docker在默认情况下，会去寻找名为“docker-compose.yml”的文件。 如果你确实需要更改文件名称，请在以下步骤中使用`-f`转换。
+
+##Step 2: Start the Microservices
+##步骤2:启动微服务
 
 Because we’re using docker-compose, starting the microservices is now simply a case of executing the following command.
 
-1
+因为我们使用docker-compose文件，所以启动微服务只需要简单的执行下面的命令。
+
+``
 $ docker-compose up
+``
+
 You’ll see lots of downloading and logging output in the terminal window as the docker images are downloaded and run.
 
-There are seven docker images in total, they are mongodb, rabbitmq, config-service, discovery-service, gateway-service, product-cmd-side, & product-qry-side.
-If you want to see which docker instances are running (and also get their local IP address), open a separate terminal window and execute the following command:-
+随着Docker镜像的下载和运行，你将在终端窗口中看到大量的下载和日志输出。
 
-1
+>There are seven docker images in total, they are mongodb, rabbitmq, config-service, discovery-service, gateway-service, product-cmd-side, & product-qry-side.
+
+>总共需要下载七个docker镜像，它们是mongodb，rabbitmq，config-service，discovery-service，gateway-service，product-cmd-side和product-qry-side。
+
+If you want to see which docker instances are running (and also get their local IP address), open a separate terminal window and execute the following command:
+
+如果需要查看哪些docker容器正在运行（并获取其本地IP地址），请打开一个单独的终端窗口并执行以下命令：
+
+``
 $ docker ps
+``
+
 Once the instances are up and running (this can take some time at first) you can have a look around immediately using your browser. You should be able to access:-
 
-The Rabbit Management Console on port `15672`
-The Eureka Discovery Server Console on port `8761`
-The Configuration Server mappings on port `8888`
-The API Gateway Routes on port ‘8080’
-Step 3: Working with Products
+一旦容器启动并运行（一开始可能需要一点时间），你立即可以通过浏览器进行查看。你应该能够访问：
+
+1. The Rabbit Management Console on port `15672`（端口15672的Rabbit Management控制台）
+2. The Eureka Discovery Server Console on port `8761`（端口8761的Eureka发现服务器控制台）
+3. The Configuration Server mappings on port `8888`（映射到端口8888的配置服务器）
+4. The API Gateway Routes on port ‘8080’（端口8080的API网关路由）
+
+##Step 3: Working with Products
+##步骤3：使用产品
 
 So far so good. Now we want to test the addition of products.
 
+到目前为止都很顺利，现在我们要测试新增的产品。
+
 In this manual system test we’ll issue an `add` command to the command-side REST API.
 
-When the command-side has processed the command a ‘ProductAddedEvent‘ is raised, stored in MongoDB, and forwarded to the query-side via RabbitMQ. The query-side then processes this event and adds a record for the product to it’s materialised-view (actually a H2 in-memory database for this simple demo). Once the event has been processed we can use the query-side microservice to lookup information regarding the new product that’s been added. As you perform these tasks, you should observe some logging output in the docker-compose terminal window.
-Step 3.1: Add A New Product
+在本次手动的系统测试中，我们将向命令侧REST API发出一个`add`命令。
+
+>When the command-side has processed the command a ‘ProductAddedEvent‘ is raised, stored in MongoDB, and forwarded to the query-side via RabbitMQ. The query-side then processes this event and adds a record for the product to it’s materialised-view (actually a H2 in-memory database for this simple demo). Once the event has been processed we can use the query-side microservice to lookup information regarding the new product that’s been added. As you perform these tasks, you should observe some logging output in the docker-compose terminal window.
+
+>当命令侧处理该指令时，产生了一个'ProductAddedEvent'，存储在MongoDB中，并通过RabbitMQ转发给查询端。然后查询侧处理此事件，并为产品的物化视图（本简单示例中实际上是一个H2内存数据库）添加一条记录。一旦事件被处理，我们就可以使用查询侧微服务来查找关于已经添加的新产品的信息。执行这些任务时，您可以在docker-compose终端窗口中观察到一些日志的输出。
+
+###Step 3.1: Add A New Product
+###步骤3.1：添加新产品
 
 To perform test this we first need to open a second terminal window from where we can issue some CURL commands without stopping the docker composed instances we have running in the first window.
 
+要执行这项测试，我们首先需要打开第二个终端窗口，我们可以继续输入一些CURL命令，同时不停止在第一个窗口中运行着的docker组合实例。
+
 For the purposes of this test, we’ll add an MP3 product to our product catalogue with the name ‘Everything is Awesome’. To do this we can use the command-side REST API and issue it with a POST request as follows…
 
-1
+为了达到测试目的，我们将在产品目录中添加一个名为“Everything is Awesome”的MP3产品。为此，我们可以使用命令侧的REST API，并发出POST请求，如下所示：
+
+``
 $ curl -X POST -v --header "Content-Type: application/json" --header "Accept: */*" "http://localhost:8080/commands/products/add/01?name=Everything%20Is%20Awesome"
-If you don’t have ‘CURL’ available to you, you can use your favourite REST API testing tool (e.g. Postman, SoapUI, RESTeasy, etc).
+``
+
+>If you don’t have ‘CURL’ available to you, you can use your favourite REST API testing tool (e.g. Postman, SoapUI, RESTeasy, etc).
+
+>如果没有可用的“CURL”，可以使用任何你喜欢的REST API测试工具（例如Postman，SoapUI，RESTeasy等）。
 
 If you’re using the public beta of Docker for Mac or Windows (highly recommended), you will need to swap ‘localhost’ for the IP address shown when you ran docker ps at the terminal window.
+
+如果你使用的是Mac或Windows的Docker公开测试版（强烈推荐），那么当你在终端窗口中使用docker ps时你需要转换‘localhost’为IP地址。
+
 You should see something similar to the following response.
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-* Trying 127.0.0.1...
-* Connected to localhost (127.0.0.1) port 8080(#0)
-> POST /commands/products/add/01?name=Everything%20Is%20Awesome HTTP/1.1
-> Host: localhost:9000
-> User-Agent: curl/7.47.0
-> Content-Type: application/json
-> Accept: */*$ http://localhost:8080/commands/products/01
-< HTTP/1.1 201 Created
-< Date: Thu, 02 Jun 2016 13:37:07 GMTThis
-< X-Application-Context: product-command-side:9000
-< Content-Length: 0
-< Server: Jetty(9.2.16.v20160414)
+你应该会看到类似于以下的响应内容：
+
+	* Trying 127.0.0.1...
+	* Connected to localhost (127.0.0.1) port 8080(#0)
+	> POST /commands/products/add/01?name=Everything%20Is%20Awesome 	HTTP/1.1
+	> Host: localhost:9000
+	> User-Agent: curl/7.47.0
+	> Content-Type: application/json
+	> Accept: */*$ http://localhost:8080/commands/products/01
+	< HTTP/1.1 201 Created
+	< Date: Thu, 02 Jun 2016 13:37:07 GMTThis
+	< X-Application-Context: product-command-side:9000
+	< Content-Length: 0
+	< Server: Jetty(9.2.16.v20160414)
+
+
 The response code should be `HTTP/1.1 201 Created.` This means that the MP3 product “Everything is Awesome” has been added to the command-side event-sourced repository successfully.
 
-Step 3.2: Query for the new Product
+响应码为`HTTP / 1.1 201 Created`。这意味着MP3产品“Everything is Awesome”已成功添加到命令端事件源存储库。
+
+###Step 3.2: Query for the new Product
+###步骤3.2：查询新产品
 
 Now lets check that we can view the product that we just added. To do this we issue a simple ‘GET’ request.
 
-1
+现在我们可以查看刚添加的产品。为此，首先发出一个简单的“GET”请求。
+
+``
 $ curl http://localhost:8080/queries/products/1
+``
+
 You should see the following output. This shows that the query-side microservice has a record for our newly added MP3 product. The product is listed as non-saleable (saleable = false).
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-{
-  name: "Everything Is Awesome",
-  saleable: false,
-  _links: {
-    self: {
-    href: "http://localhost:8080/queries/products/1"
-    },
-  product: {
-    href: "http://localhost:8080/queries/products/1"
-    }
-  }
-}
+你应该可以看到以下输出，这表明查询侧微服务具有我们新添加的MP3产品的记录：
+
+
+	{
+		name: "Everything Is Awesome",
+		saleable: false,
+		_links: {
+    		self: {
+    		href: "http://localhost:8080/queries/products/1"
+    		},
+		product: {
+    		href: "http://localhost:8080/queries/products/1"
+			}
+		}	
+	}
+
 That’s it! Go ahead and repeat the test to add some more products if you like, just be careful not to try to reuse the same product ID when you POST or you’ll see an error.
+
+搞定！如果你愿意，可以重复测试，添加更多的产品，不过小心不要尝试使用相同的ID，否则当你发出POST请求时将会反馈一个错误。
 
 If you’re familiar with MongoDB you can inspect the database to see all the events that you’ve created. Similarly if you know your way around the RabbitMQ Management Console you can see the messages as they flow between the command-side and query-side microservices.
 
-About the Author
+如果你熟悉MongoDB，你可以检查数据库以查看创建的所有事件。同样，如果你知道RabbitMQ管理控制台的方式，也可以看到消息在命令端和查询端微服务之间传输的过程。
+
+#About the Author
+#关于作者
 
 Ben Wilcock is a freelance Software Architect and Tech Lead with a passion for microservices, cloud and mobile applications. Ben has helped several FTSE 100 companies become more responsive, innovate, and agile. Ben is also a respected technology blogger who’s articles have featured in Java Code Geeks, InfoQ, Android Weekly and more. You can contact him on LinkedIn, Twitter and Github.
