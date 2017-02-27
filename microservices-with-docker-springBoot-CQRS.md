@@ -81,12 +81,9 @@ The query-side microservice acts as an event-listener and a view. It listens for
 
 查询侧的微服务充当着一个事件监听者的角色。监听着被命令方提交的 `事件` 并将其通过最直观的方式表达出来（比如一个表格视图）。
 
-
-
 In this particular example, the query-side simply builds and maintains a ‘materialised view’ or ‘projection’ which holds the latest state of the individual Products (in terms of their id and their description and whether they are saleable or not). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues can be made to be durable, so they can even temporarily store messages on behalf of the query-side if it goes down.
 
 在这个特殊的例子中，查询侧只是简单的构建并且维护一个产品状态的`可视化` 或 `投影`(依据它们的ID和描述与是否在售的状态)。查询侧可以横向拓展多实例，RabbitMQ的消息队列也可被设置为坚固化的，因此，查询侧甚至于可以临时存储消息。
-
 
 The command-side and the query-side both have REST API’s which can be used to access their capabilities.
 
@@ -267,4 +264,4 @@ If you’re familiar with MongoDB you can inspect the database to see all the ev
 #About the Author
 #关于作者
 
-Ben Wilcock 是一位自由软件架构师和技术主管，对微服务，云和移动应用充满热情。Ben曾经帮助过多家FTSE 100的公司变得更加可靠，创新和敏捷。 同时Ben也是一位受人尊敬的技术博客，其文章被收录于Java Code Geeks，InfoQ，Android Weekly等等。如果你存在任何问题，可以通过LinkedIn, Twitter 或者 Github 联系他。
+Ben Wilcock是一位自由软件架构师和技术主管，对微服务，云和移动应用充满热情。Ben曾经帮助过多家FTSE 100的公司变得更加可靠，创新和敏捷。 同时Ben也是一位受人尊敬的技术博客，其文章被收录于Java Code Geeks，InfoQ，Android Weekly等等。如果你存在任何问题，可以通过LinkedIn,Twitter或者Github联系他。
