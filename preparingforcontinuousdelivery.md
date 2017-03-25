@@ -30,7 +30,7 @@ This Refcard explains these requirements in more detail, giving guidance, advice
 
 本文详细地解释了这些要求，为准备从传统发布方式转向持续交付方式的开发和运维团队提供指导、建议和最佳实践案例。
 
-#2.目标
+# 2.目标
 
 Continuous delivery should help you to:
 
@@ -51,7 +51,7 @@ Continuous delivery should help you to:
 
 使您的软件处于生产就绪状态，以便您可以随时部署。
 
-#3.预备步骤
+# 3.预备步骤
 
 To get there, however, you may need to put the following into place:
 
