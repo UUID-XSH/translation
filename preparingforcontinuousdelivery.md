@@ -1,8 +1,10 @@
-#Preparing for Continuous Delivery
-#为持续交付做准备
-###Building Your DevOps Pipeline  建立您的DevOps管道
+# Preparing for Continuous Delivery
 
-##目录：
+# 为持续交付做准备
+
+### Building Your DevOps Pipeline  建立您的DevOps管道
+
+## 目录：
 
 - 关于持续交付
 - 目标
@@ -10,7 +12,7 @@
 - 实现CD管道
 - CD最佳实践及其他
 
-#1.关于持续交付
+# 1.关于持续交付
 
 Continuous delivery is a set of patterns and best practices that can help software teams dramatically improve the pace and quality of their software delivery.
 
@@ -81,9 +83,9 @@ On hearing about continuous delivery, some people’s first concern is that it i
 您的软件仍然会经历与现在相同的严格测试阶段，可能包括手动质量检查测试阶段。持续交付只是让您的软件以最严格和最有效的方式在您设计的管道中流通，从开发一直到生产。
 
 
-##THE KEY BUILDING BLOCK OF CONTINUOUS DELIVERY: AUTOMATION!
+## THE KEY BUILDING BLOCK OF CONTINUOUS DELIVERY: AUTOMATION!
 
-##连续交货的关键模块：自动化！
+## 连续交货的关键模块：自动化！
 
 Though it is quite valid and realistic to have manual steps in your continuous delivery pipeline, automation is central in speeding up the pace of delivery and reducing cycle time.
 
@@ -95,7 +97,7 @@ Though it is quite valid and realistic to have manual steps in your continuous d
 
 因此，最重要的目标应该是使开发者和生产环境之间的大部分路径自动化。 以下是您应该专注于自动化工作的一些主要领域。
 
-##AUTOMATED BUILD AND PACKAGING
+## AUTOMATED BUILD AND PACKAGING
 
 The first thing you will need to automate is the process of turning developers’ source code into deployment-ready artifacts.
 
