@@ -160,4 +160,34 @@ Though continuous delivery can (and frequently does) include manual exploratory 
 
 |TEST TYPE|TO CONFIRM THAT|
 |:--|:--|
-|Unit Tests 单元测试|Low level functions and classes work as expected under a variety of inputs. 底层函数和类在不同输入条件下按照预期工作||Integration Tests 集成测试|Integrated modules work together and in conjunction with infrastructure such as message queues and databases.集成模块与消息队列和数据库等基础设施协同工作||Acceptance Tests 验收测试|Key user  ows work when driven via the user interface, regarding your application as a complete black box.||Load Tests|Your application performs well under simulated real world user load.||Performance Tests|The application meets performance requirements and response times under real world load scenarios.||Simulation Tests|Your application works in device simulation environments. This is especially important in the mobile world where you need to test software on diverse emulated mobile devices.||Smoke Tests|Tests to validate the state and integrity of a freshly deployed environment.||Quality Tests|Application code is high quality – identi ed through techniques such as static analysis, conformance to style guides, code coverage etc.|
+|Unit Tests 单元测试|Low level functions and classes work as expected under a variety of inputs. 底层函数和类在不同输入条件下按照预期工作||Integration Tests 集成测试|Integrated modules work together and in conjunction with infrastructure such as message queues and databases.集成模块与消息队列和数据库等基础设施协同工作||Acceptance Tests 验收测试|Key user flows work when driven via the user interface, regarding your application as a complete black box.按照目标用户操作流程通过用户界面驱动，将您的应用程序作为一个完整的黑盒子||Load Tests 负载测试|Your application performs well under simulated real world user load.您的应用程序在模拟的真实用户负载下运行良好||Performance Tests 行为测试|The application meets performance requirements and response times under real world load scenarios.该应用程序在实际负载情况下满足性能要求和响应时间要求。||Simulation Tests 模拟测试|Your application works in device simulation environments. This is especially important in the mobile world where you need to test software on diverse emulated mobile devices.您的应用程序在设备仿真环境中工作。这在移动端尤其重要，您需要在各种模拟的移动设备上测试软件。||Smoke Tests 冒烟测试|Tests to validate the state and integrity of a freshly deployed environment.验证新部署环境的状态和完整性||Quality Tests 质量测试|Application code is high quality – identi ed through techniques such as static analysis, conformance to style guides, code coverage etc.应用代码是高质量的 - 通过静态分析，代码风格指南，代码覆盖度等技术来识别。|
+
+Ideally, these tests can be spread across the deployment pipeline,with the slower and more expensive tests occurring further down the pipeline, in environments that are increasingly production-like as the release candidate looks increasingly viable. The aim should be to identify problematic builds as early as possible in order to avoid re-work, keep the cycle time fast and get feedback as early as possible:
+
+理想情况下，这些测试可以分布在部署管道中，随着管道中的测试越来越详细和价值越来越高，在生产环境中，这些发布候选工件看起来越来越可靠。其目标应该是尽早确定有问题的构建，以避免返工，尽快缩短周期时间和获得反馈。
+
+| AIM TO: |
+| :------|| Automate as much of your testing as possible.|
+|让您的测试尽可能多的实现自动化 || Provide good test coverage at multiple levels of abstraction against both code artifacts and the deployed system.|
+| 提供针对代码部件和部署系统的多级抽象的良好测试覆盖 || Distribute different classes of tests along your deployment pipeline, with more detailed tests occurring in increasingly production-like environments later on in the process, while avoiding human re-work.|
+| 在您的部署管道中分发不同类别的测试，模拟日后的生产环境并进行更加详细的测试，同时避免人力返工。|
+
+In a microservice-style environment, integration and contract tests across deployed components are increasingly important. In such an environement, the ability to automatically deploy all necessary related apps (see next section) becomes a high-priority task.
+
+在微服务风格的环境中，跨部署组件的集成和协同测试越来越重要。在这样的环境中，自动化部署所有必需的应用程序（见下一节）的功能成为高优先级的任务。
+Automated tests are your primary line of defense in your aim to release high-quality software more frequently. Investing in these tests can be expensive up front, but this battery of automated tests will continue to pay dividends across the lifetime of the application.
+
+自动化测试是您发布高质量软件的主要防线，投资这些测试可能是昂贵的，但这一系列的自动化测试将在应用的整个生命周期内持续分红。
+
+## 4.4 AUTOMATED DEPLOYMENTS
+## 4.4 自动化部署
+
+Software teams typically need to push release candidates into different environments for the different classes of testing discussed above.
+
+软件团队通常需要将上述的不同类别的测试推送到不同的环境中。
+For instance, a common scenario is to deploy the software to a test environment for human QA testing, and then into some performance test environment where automated load testing will take place. If the build makes it through that stage of the testing, the application might later be deployed to a separate environment for UAT or beta testing.
+
+例如，常见的情况是将软件部署到测试环境进行人为的质量检查测试，然后进行一些性能测试环境，其中将进行自动化负载测试。 如果构建通过该测试阶段，则应用程序可能稍后部署到用于UAT或beta测试的单独环境中。
+Ideally, the process of reliably deploying an arbitrary release candidate, as well as any other systems it communicates with, into an arbitrary environment should be as automated as possible.
+
+理想情况下，将任意发布候选部件以及与之通信的其他系统可靠地部署到任意环境中的这个过程应尽可能实现自动化。
