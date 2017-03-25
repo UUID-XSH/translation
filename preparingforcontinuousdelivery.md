@@ -83,21 +83,23 @@ On hearing about continuous delivery, some people’s first concern is that it i
 您的软件仍然会经历与现在相同的严格测试阶段，可能包括手动质量检查测试阶段。持续交付只是让您的软件以最严格和最有效的方式在您设计的管道中流通，从开发一直到生产。
 
 
-## THE KEY BUILDING BLOCK OF CONTINUOUS DELIVERY: AUTOMATION!
+## 4.THE KEY BUILDING BLOCK OF CONTINUOUS DELIVERY: AUTOMATION!
 
-## 连续交货的关键模块：自动化！
+## 4.连续交货的关键模块：自动化！
 
 Though it is quite valid and realistic to have manual steps in your continuous delivery pipeline, automation is central in speeding up the pace of delivery and reducing cycle time.
 
 尽管在持续交付流程中采取手动步骤是非常有效和现实的，但自动化是加快交付步伐和缩短周期时间的关键。
 After all, even with a well-resourced team, it is not viable to build, package, compile, test, and deploy software many times per day by hand, especially if the software is in any way large or complex.
 
-毕竟，即使拥有再丰富资源的团队，手工构造，打包，编译，测试和部署软件也是不可行的，尤其是软件很大或者极其复杂的情况下。
+毕竟，即使拥有再丰富资源的团队，手工构建，打包，编译，测试和部署软件也是不可行的，尤其是软件很大或者极其复杂的情况下。
 Therefore, the overriding aim should be to increasingly automate away much of the pathway between the developer and the live production environment. Here are some of the major areas you should focus your automation efforts on.
 
 因此，最重要的目标应该是使开发者和生产环境之间的大部分路径自动化。 以下是您应该专注于自动化工作的一些主要领域。
 
-## AUTOMATED BUILD AND PACKAGING
+## 4.1 AUTOMATED BUILD AND PACKAGING
+
+## 4.1 自动化构建和打包
 
 The first thing you will need to automate is the process of turning developers’ source code into deployment-ready artifacts.
 
@@ -110,6 +112,52 @@ These steps can represent a significant barrier to achieving continuous delivery
 
 这些步骤是实现持续交付的重大障碍的代表。 例如，如果每三个月发布一次，手动构建与安装就显得不那么繁杂。但是，如果您希望每天或每周发布多次，那么这个任务完全可靠地自动化会更合适。
 
-AIM TO:Implement a single script or command that enables you to go from version controlled source code to a single deployment ready artifact.
+| AIM TO:|
+|:---|| Implement a single script or command that enables you to go from version controlled source code to a single deployment ready artifact.|
 
-实现单个脚本或命令，使您能够从版本控制的源代码转移到单个部署完成的构件上去。
+实现单个脚本或命令，使您能够将版本控制的源代码转换为单个部署就绪的构件。
+
+## 4.2 AUTOMATED CONTINUOUS INTEGRATION
+
+## 4.2 自动化持续整合
+
+Continuous integration is a fundamental building block of continuous delivery.
+
+持续整合是持续交付的基本组成部分。
+It involves combining the work of multiple developers and continually compiling and testing the integrated code base such that errors are identified as early as possible.
+
+它涉及整合多个开发人员的代码，并不断编译和测试集成的代码库，以便尽可能早地识别错误。
+Ideally, this process will make use of your automated build so that your continuous integration server is continually emitting a deployment artifact containing the integrated work of the development team, with the result of each build being a viable release candidate.
+
+理想情况下，此过程将利用自动化进行构建，使您的持续集成服务器不断地发布包含开发团队集成工作的部署工件，每个构建的结果都是可行的发布候选。
+Typically, you will set up a continuous integration server or cloud service such as Jenkins, TeamCity, or Team Foundation Server to carry out the integration many times per day, potentially on each commit.
+
+通常，您将建立一个连续集成服务器或相关云服务（如Jenkins，TeamCity或Team Foundation Server），每天可能会执行多次集成，很可能在每次提交时触发。
+Third party continuous integration services such as CloudBees DEV@cloud, Travis CI, or CircleCI can help to expedite your continuous delivery efforts. By outsourcing your continuous integration platform, you are free to focus on your continuous delivery goals, rather than on administration and management of tools and infrastructure.
+
+第三方持续集成服务，如CloudBees DEV @ cloud，Travis CI或CircleCI可以帮助您加快您的持续集成进度。 通过外包您的持续整合平台，您可以自由地专注于持续交付的目标，而不是管理工具和基础架构。
+
+| AIM TO: |
+| :------|| Implement a continuous integration process that continually outputs a set of deployment-ready artifacts.|
+|实现持续集成过程就是持续输出一组可用于部署的工件 || Evaluate cloud-based continuous integration offerings to expedite your continuous delivery efforts.|
+| 评估基于云的持续集成产品，以加快您的持续交付进程 || Integrate a thorough audit trail of what has changed with each build through integration with issue tracking software such as Jira.|
+| 通过发布跟踪软件（如Jira）的集成，整合对每个构建所发生变化的详细审计跟踪|
+
+Your continuous integration tooling will likely be central for your continuous delivery efforts. For instance, it can go beyond builds and into testing and deployment. For this reason, continuous integration is a key element of your continuous delivery strategy.
+
+您的持续集成工具可能对您的持续交付工作至关重要。 例如，它可以超越构建并进入测试和部署。 因此，持续集成是您持续交付策略的关键要素。## 4.3 AUTOMATED TESTING
+## 4.3 自动化测试
+
+Though continuous delivery can (and frequently does) include manual exploratory testing stages performed by a QA team, or end user acceptance testing, automated testing will almost certainly be a key feature in allowing you to speed up your delivery cycles and enhance quality.
+
+虽然持续交付可以（并且经常）包括由质量保证团队执行的手动检测测试阶段或最终用户验收测试，但是自动测试几乎肯定将是您加快交付周期并提高质量的关键功能。
+Usually, your continuous integration server will be responsible for executing the majority of your automated tests in order to validate every developer check-in.
+
+通常，您的持续集成服务器将负责执行大多数的自动化测试，以验证每个开发人员提交的代码。
+However, other automated testing will likely subsequently take place when the system is deployed into test environments, and you should also aim to automate as much of that as possible. Your automated testing should be detailed, testing multiple facets of your application:
+
+然而，当系统部署到测试环境中时，某些自动化测试可能会被需要执行，因此您还应该尽可能多的实现自动化。您的自动化测试应该是详尽的，能够覆盖测试应用程序的多个方面：
+
+|TEST TYPE|TO CONFIRM THAT|
+|:--|:--|
+|Unit Tests 单元测试|Low level functions and classes work as expected under a variety of inputs. 底层函数和类在不同输入条件下按照预期工作||Integration Tests 集成测试|Integrated modules work together and in conjunction with infrastructure such as message queues and databases.集成模块与消息队列和数据库等基础设施协同工作||Acceptance Tests 验收测试|Key user  ows work when driven via the user interface, regarding your application as a complete black box.||Load Tests|Your application performs well under simulated real world user load.||Performance Tests|The application meets performance requirements and response times under real world load scenarios.||Simulation Tests|Your application works in device simulation environments. This is especially important in the mobile world where you need to test software on diverse emulated mobile devices.||Smoke Tests|Tests to validate the state and integrity of a freshly deployed environment.||Quality Tests|Application code is high quality – identi ed through techniques such as static analysis, conformance to style guides, code coverage etc.|
