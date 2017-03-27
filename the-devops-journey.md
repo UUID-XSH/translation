@@ -21,14 +21,14 @@ DevOps、敏捷、持续交付，他们是新型软件开发和测试领域的�
 然而实际上，DevOps的涵盖范围并非总是那么黑白分明的。采用DevOps是一种演进，而不是一个组织能够直接做出的是否采用并立即实现的选择。这种演进需要多个步骤和阶段。
 This whitepaper explains the DevOps journey and identifies the phases that the typical organization crosses as it adopts DevOps practices. It highlights the various degrees of agility associated with each stage, then discusses the barriers, including manual and sequential testing, that organizations have to overcome in order to progress further toward the endpoint of the DevOps journey, which means reaching full continuous delivery.
 
-该白皮书解释了DevOps的演进，并定义了典型组织在实践DevOps时所需要经历的几个阶段。它强调了每个阶段的多种敏捷度，然后讨论了组织为了实现DevOps演进而必须克服的包括人力测试和顺序测试的障碍点，这意味着将达到全面的持续交付。## STAGES OF AGILITY  多阶段的灵敏度
+该白皮书解释了DevOps的演进，并定义了典型组织在实践DevOps时所需要经历的几个阶段。它强调了每个阶段的多种敏捷度，然后讨论了组织为了实现DevOps演进而必须克服的包括人力测试和顺序测试的障碍点，这意味着将达到全面的持续交付。## STAGES OF AGILITY  多阶段的敏捷性
 
 Because modern software delivery chains involve so many tools and processes, it is best to think of the DevOps journey as a continuum. Organizations progress slowly from one phase to the next. They do not make the jump between phases overnight.
 
 因为现代的软件交付链包含非常多的工具和过程，最好将DevOps演进视为一个连续的过程。组织是从一个阶段缓慢发展到另一个阶段，他们并不能在一夜之间发生突变。
 That said, it is possible to identify four main stages of agility within the DevOps continuum. They include:
 
-那即是说，我们能够定义DevOps持续发展过程中敏捷度的四个阶段：
+那即是说，我们能够定义DevOps持续发展过程中敏捷性的四个阶段：
 - Waterfall. Organizations with a waterfall delivery process are living in the yesteryear of software development. They write, test and deliver code according to a sequential staccato rhythm. Their programming, Ops and quality assurance teams operate in silos, without collaborating with one another. They rely on manual processes, including manual testing.
 
 - 瀑布式。曾经组织的软件交付常常利用瀑布式的交付过程。他们根据连续的staccato节奏编写、测试和交付代码。他们的编程，操作和质量保证团队在各自的孤岛上运作，没有彼此的协作。他们依赖人工过程，包括手动测试。
