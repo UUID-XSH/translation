@@ -191,3 +191,37 @@ Software teams typically need to push release candidates into different environm
 Ideally, the process of reliably deploying an arbitrary release candidate, as well as any other systems it communicates with, into an arbitrary environment should be as automated as possible.
 
 理想情况下，将任意发布候选部件以及与之通信的其他系统可靠地部署到任意环境中的这个过程应尽可能实现自动化。
+
+
+
+
+# 占坑 （第6页）
+
+In this ideal world, developers would check in code and release candidates would then flow through the pipeline, 
+
+在这个理想的世界中，开发者将要检查代码，然后通过管道将候选者发布出去，
+
+
+with each step and each gateway between phases automated. Eligible release candidates would be emitted at the end of the pipeline ready for deployment, 
+
+每个步骤和各阶段之间的每个网关都自动化。合格的发布候选版本将被放在管道的末端以备部署，
+
+and you would have complete confidence in every one.
+
+而你会对每个人都抱有信心。
+
+For various reasons, however, this is not always viable. For instance, 
+
+但是，由于各种各种的原因，这并不总是行得通。例如，
+
+common problems are a shortfall in the amount of automated testing or business requirements that mandate manual user acceptance or beta testing. 
+
+通常由于自动化测试的不足以及授权用户和beta测试的业务要求，
+
+Even where high degrees of automated testing are in place, many businesses would likely include manual sign-offs before builds can flow through the pipeline and into production.
+
+即使在高度自动化测试的地方,许多企业在构建通过管道到达生产之前都需要人工签字。
+
+For this reason, our delivery pipeline definitely needs to acknowledge, model, and allow for humans and manual phases in the process:
+
+因为这些原因，我们的发布管道的确需要通知，建模，以及在过程中允许人为和手工操作。
