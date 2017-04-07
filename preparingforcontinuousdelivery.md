@@ -341,3 +341,63 @@ Do not discount vendor tools, as these can potentially free up valuable develope
 A permission model may be incorporated so that only certain authorized people have deployment permissions.
 
 给你的团队自助服务设施，比如让操作者发布产品以及在其就绪的时候让QA把版本放置于他们的测试环境。可以使用权限模型注册功能，以便只有某些授权人员具有部署权限。
+
+CONTINUOUS DELIVERY BEST PRACTICES
+
+持续交付最佳实践
+
+Once you’ve put the fundamentals in place and set up a delivery pipeline, you’ll hopefully already begin to benefit from decreased cycle times and faster delivery.
+
+一旦你将基础就绪并建立好发布管道，你很可能已经准备好从减少循环时间以及快速发布中收益。
+
+Automation should be taking care of lots of the manual jobs, environments and deployments should be more consistent, and release candidates should be flowing between pipeline phases using automated gates and self-service tools.
+
+自动化会取代很多人工任务，环境和发布会变的一致，发布候选者将使用自动路由和自助服务工具在各个管道阶段中流动。
+
+Your software should almost always be in a production-ready state, with release candidates coming out of the end of the pipeline much more frequently than with a traditional delivery process. Each release candidate should be adding a relatively small batch of changes.
+
+你的软件应该近似于时刻处在生产就绪状态，伴随着发布候选人最后从管道的出来的频率远大于从传统途径的频率。每个发布候选者应该增加一批相对较小的改动。
+
+Once you are at this stage, there is always more you can do to improve and move towards even faster delivery cycles while enhancing the stability of your system.
+
+一旦你处于这个阶段，那么你常常会有更多机会去提升和推进更快的发布周期，而这会是你的系统的稳定性更强。
+
+A few of these best practices are listed below.
+
+下面列举了一些最佳实践
+
+IMPLEMENT MONITORING
+
+实施监控
+
+Though everything we have discussed in this document describes a rigorous process that will help you avoid releasing bugs into production, 
+
+尽管这份文档讨论的所有事情是描述一个严格的过程过程去帮助你避免在发布产品的时候出现bug，
+
+it’s also important that you are alerted if something does go wrong in the system as a result of a deployment.
+
+但是一旦发布结果显示出系统出现了某种故障，那么被警示同样显得非常重要。
+
+For instance, if your application starts throwing alerts or exceptions after a deployment, it’s important that you are told straight away so that you can investigate and resolve.
+
+举个例子，如果你的应用开始在分发结束之后开始抛出警示和异常，那么被直接告之就显得极其重要，这意味着你可以调查和结局。
+
+Ideally, this alert will be delivered via some dashboard or monitoring front- end, though an email, text message, Slack alert, or something similar could work as a first step.
+
+理想情况下，这种警示将会以仪表盘或者监控终端的途径传递，比如邮件，文本消息，Slack，或者功能类似的其他途径。
+
+You may also need to go a layer deeper than simply checking for errors in logs and start monitoring the metrics that your application is pushing out. 
+
+你可能会需要更加深入而不仅仅是简单的检查错误日志，并且开始监视应用程序正在推导出的度量。
+
+For instance, if your shopping cart completion rate drops by 20% after a release, then this could indicate a more subtle but very serious error with the latest deployment. Open source tools such as StatsD and Graphite or traffic and browsing analytics tools such as Google Analytics can help here. 
+
+比如，如果你的购物车完成了在一个发布后下降了20%，这可能预示着上一个发布的一个微妙但是严重的错误。诸如StatsD和Graphite之类的开源工具以及通信和浏览分析工具Google Analytics会在此帮助到你。
+
+Again, these metrics should be pushed into your monitoring and alerting dashboards when possible.
+
+同样的，这些度量应该在可能的情况下加入到你的监视和警告的仪表盘当中。
+
+There are a wealth of open source and hosted tools that can help you with intelligent monitoring of your applications. These are definitely worth evaluating as a fast and cost-effective means of supporting your continuous delivery project.
+ 
+有许多有价值的开源和商业工具可以帮助你智能的去监控你的应用。这些都是值得评估作为一个快速和符合成本效益的手段，支持你的连续交付项目。
