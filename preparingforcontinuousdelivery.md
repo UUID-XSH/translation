@@ -519,3 +519,42 @@ You should also be sure to capture all binaries that are released into an enviro
 
 你应该确保为了可追踪性和可调查性去捕捉被发布到某个环境的所有二进制文件，仓库管理工具诸如Nexus和Artifactory在此非常有用。也有很大一批工具，作为容器镜像作为专门的登记。
 
+AIM TO:
+Integrate with issue tracking or change management software to provide detailed audits of issues that are addressed with each release candidate.
+Change-control all relevant code and archive all released binaries.
+
+集成问题追踪软件或者变更管理软件将会为每个发布候选着定位到详细的问题审计信息。
+变更控制所有相关的代码以及归档所有发布过的二进制文件。
+
+IMPLEMENT FEATURE FLAGS
+
+实现特征标志
+
+Feature flags are a facility that developers build into the software that gives them the ability to toggle specific features on or off with a high degree of granularity. This simple technique can add stability into the system through greater control of how new features are put into production use:
+
+特征标志是一个开发者构建进软件的设施，以获得在一个较高水准的粒度上切换不同特性的能力。这项简单的技术可以通过加大控制如何使新的特性投入生产使用以增加系统的可靠性：
+
+Good feature flags will be:
+
+一个优秀的特性标志将会：
+
+• Managed at runtime without a restart or user interruption.
+
+在运行时被管理而不需要重启或者用户中断。
+
+• Well-tested, in that you should make sure your tests cover all the combinations of features that you plan to use in production.
+
+良好测试，这意味着你应该确保你的测试覆盖了所有你将要计划在生产使用的新特性的组合。
+
+• Identifiable at runtime, allowing you to identify which features are active where, and how they correlate with usage of the system.
+
+运行时识别，允许你识别哪个特性在什么场景下被激活，以及他们与系统用量之间的关系。
+
+Simple feature flags may seem straightforward to build yourself. You will likely quickly find, however, that the number of required features for your feature flag implementation expands rapidly: historical comparison, audit trails and role-based access control to name but a few.
+
+简单的特性标志可能看上去会简单的构建自己。你可能会喜欢快速发现，然而，你的功能标志实现所需的功能数量迅速扩展：历史比较，审计跟踪和基于角色的访问控制的名称，但是不多。
+
+For this reason, investigate dedicated feature flag platforms such as LaunchDarkly, which already provide these and other advanced capabilities, and are usually easily integrated into existing code.
+
+基于这个理由，研究专门的特征标志平台如launchdarkly，已经提供了这些或者其它先进的特性，并且常常很容易就集成到现有的代码中。
+
