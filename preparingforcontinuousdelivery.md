@@ -286,7 +286,7 @@ For both automated and manual gates, you will want to identify the criteria that
 
 If gate criteria are not met, the system should prevent release candidates from progressing through the delivery pipeline.
 
-如果有一个途径的标准没有被满足，那么系统就应该从分发管道中去阻止候选者的发布。
+如果有一个流程的标准没有被满足，那么系统就应该从分发管道中去阻止候选者的发布。
 
 STEP 3: IMPLEMENT YOUR PIPELINE
 
@@ -401,3 +401,77 @@ Again, these metrics should be pushed into your monitoring and alerting dashboar
 There are a wealth of open source and hosted tools that can help you with intelligent monitoring of your applications. These are definitely worth evaluating as a fast and cost-effective means of supporting your continuous delivery project.
  
 有许多有价值的开源和商业工具可以帮助你智能的去监控你的应用。这些都是值得评估作为一个快速和符合成本效益的手段，支持你的连续交付项目。
+
+AIM TO:
+Provide real time monitoring of your application, ideally via a visual dashboard.
+Track key metrics regarding your applications usage, and alert if a deployment appears to negatively impact these.
+
+为了实时监控你的应用，最理想的方法应该是通过可视化的仪表盘。追踪应用的关键度量，如果部署出现负面的影响就使其发出警报。
+
+IMPLEMENT ROLLBACK
+
+实现回滚
+
+Being able to quickly and reliably roll back changes applied to your production environment is the ultimate safety net.
+
+使你的生产环境具备快速可靠的回滚是最后的安全网。
+
+If a bug slips through despite all of your automated and manual testing, the rollback will enable you to quickly move back to the previous working version of the software before too many users are impacted.
+
+如果一个bug在你的所有手动和自动的测试中通过，那么回滚将使应用在许多用户受到影响之前快速回到之前可用版本。
+
+With the comfort of a good rollback process, you can then be even more ambitious in terms of automating delivery pipeline stages and opening up the gates between stages.
+
+伴随着一个优秀的回滚途径带来的益处，你将在自动发布管道和打开各个阶段之间的大门变得更加有野心。
+
+This confidence will result in a much faster pace of delivery, and you’ll feel more confident in adding automation into the delivery process.
+
+这种信心会导致更快速度的发布，在发布流程中加入自动化会让你变得更有信心。
+
+If the delivery pipeline is implemented well, you should essentially get this rollback capability for free. If version 9 of your software breaks, simply deploy version 8, which should still be available, all signed off and ready to re-deploy at the end of your pipeline.
+
+如果发布管道实现的非常好，你应该不用花费额外代价就能得到这种回滚能力。如果版本9发生了故障，部署版本8就好了，它应该同样可用，所有签署和准备重新部署在您的管道末端。
+
+AIM TO:
+Provide a mechanism to quickly and repeatedly roll back any software changes to the system.
+Build this into the pipeline process to reduce the need for developers to explicitly code for rollbacks.
+Test your rollback regularly as part of your pipeline to retain confidence in your process.
+
+为快速重复的回滚任何软件提供一种机制。
+将其构建在管道流程中，以减少开发者显示的去编码。
+定义的去测试你的回滚机制，作为测试管道的一部分，以保持你对流程的信心。
+
+EXTRACT ENVIRONMENT-SPECIFIC CONFIGURATION
+
+提取特异于环境的配置
+
+It’s important that you use the same binaries and artifacts right through the pipeline. If QA and UAT are carried out against different binaries, your testing is completely invalidated.
+
+在管道中正确并且一致的去使用二进制包和产品是很重要的。如果QA和UAT在开展工作的过程中不同的二进制包，那么你的测试完全是无效的。
+
+For this reason, you need the ability to push the same application binaries into arbitrary environments, and then deploy environment-specific configuration separately. 
+
+基于这个理由，你需要获得将同样的应用二进制包推进任意环境的能力，接着分开发布环境特异的配置。
+
+This configuration should be version controlled just like any other code, giving you much more repeatability and a better audit trail.
+
+这种配置应该像其他任何代码一样进行版本控制，这使得你获得更多的复用和更好的审计。
+
+Quite often, the main stumbling block to doing this is having environment- specific configuration tied too tightly to the actual application binaries.
+
+确实，这样做最大的阻碍是拥有环境特异的配置会和实际的二进制包紧密的耦合在一起。
+
+Extracting this environment-specific configuration into external properties files or other configuration sources gives you much more agility with regards to this.
+
+将这些环境特异的配置提取出来，放到额外的属性文件或者其它配置源会使你获得对待此类阻碍更大的敏捷性。
+
+AIM TO:
+Use the same application binaries throughout your deployment pipeline. Avoid rebuilding from source or processing binaries in any way, even if you believe it is safe to do so.
+Extract environment-specific information into version controlled configuration that can be deployed separately from the main deployment artifacts.
+
+在你的发布管道中使用同样的二进制包。避免重新构建源或者以任何方式处理二进制文件，即便你觉得这样做是安全的。将环境特异的信息提取到版本控制的配置，这会使其从主要的发布产品中分开。
+
+PERFORM CANARY RELEASES
+
+A really useful technique for increasing stability of your production environment is the canary release. This concept involves releasing the next version of your software into production, but only exposing it to a small
+
