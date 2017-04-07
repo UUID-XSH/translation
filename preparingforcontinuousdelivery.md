@@ -581,4 +581,4 @@ The combination of cloud and automated infrastructure management are ideal for h
 AIM TO:
 Reduce infrastructure administration and management, and support variability in your infrastructure requirements by deploying onto the cloud or infrastructure as a service.
 
-减少基础设施管理和管理，并支持您的基础设施需求的变化，部署到云或基础设施作为服务。
+减少基础设施管理，并通过部署到云或基础设施服务使其支持需求的变化。
