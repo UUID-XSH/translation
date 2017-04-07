@@ -473,5 +473,49 @@ Extract environment-specific information into version controlled configuration t
 
 PERFORM CANARY RELEASES
 
-A really useful technique for increasing stability of your production environment is the canary release. This concept involves releasing the next version of your software into production, but only exposing it to a small
+实行金丝雀发布
+
+A really useful technique for increasing stability of your production environment is the canary release. This concept involves releasing the next version of your software into production,
+
+一个增加产品环境稳定性的有用的技术是金丝雀发布。这个概念涉及到将你的软件的下个版本发布到生产中，
+
+but only exposing it to a small fraction of your user base. This can be achieved, for example, by using a load balancer to direct only a small percentage of traffic to the new version.
+
+但是只将其暴露给你的用户的一小部分。这可以被做到，例如，使用一个负载均衡器仅仅将一小部分比例的信号量定向到新的版本。
+
+Though the aim is never to introduce any bugs into the production environment, if you do, you would obviously prefer to insulate the bulk of the user base from any issues.
+
+尽管我们的目的从来都不是将任何bug引入到生产环境中，很明显，你更愿意将用户的大部分与任何问题隔离起来。
+
+As you build confidence in the deployment, you can then increasingly expose more of the user base to it, until the previous version is completely out of scope.
+
+当你在发布过程中建立了信心，随后你可以增加新版本对用户的暴露的数量，知道完全取代旧版本。
+
+Being able to deploy canary releases is a huge win with regards to continuous delivery, but it can require significant work and architectural changes in the application.
+
+金丝雀发布在持续发布的一个重大的胜利，但它需要显著的工作和应用架构上的变化。
+
+AIM TO:
+Deliver the capability to canary release, ideally while the production application is in use by users.
+进行金丝雀发布，当用户数量很多的时候是很理想的。
+
+CAPTURE BUILD AUDIT INFORMATION
+
+捕捉构建审计信息
+
+Ideally, your continuous delivery pipeline should give you a very clear pattern of what specifically has changed about the software with each release candidate. This has benefits all the way through the pipeline.
+
+理想情况下，你的持续发布管道应该会给你带来一个清晰的途径，关于每个发布候选者的变更。这使管道的所有途径受益。
+
+Manual testing can specifically focus on the areas that have changed and you can move forward with more confidence if you know the exact scope of each deployment.
+
+手动测试可以特定的去关注改变过的区域，在你知道每个发布的实际范围后你会更有自信的前进。
+
+By integrating your continuous integration server with issue-tracking software such as Jira or Pivotal Tracker, you can develop highly automated systems where release notes can be built and linked back to individual issues or defects.
+
+通过使用集成服务器上的问题追踪软件诸如Jira和Pivotal Tracker，你可以开发高度自动化的系统发，行说明可以被构建和链接回到个别问题或缺陷。
+
+You should also be sure to capture all binaries that are released into an environment for traceability and investigative reasons. Repository management tools such as Nexus or Artifactory can help here. There are also a growing number of tools that act as dedicated registries for container images.
+
+你应该确保为了可追踪性和可调查性去捕捉被发布到某个环境的所有二进制文件，仓库管理工具诸如Nexus和Artifactory在此非常有用。也有很大一批工具，作为容器镜像作为专门的登记。
 
