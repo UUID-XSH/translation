@@ -558,3 +558,27 @@ For this reason, investigate dedicated feature flag platforms such as LaunchDark
 
 基于这个理由，研究专门的特征标志平台如launchdarkly，已经提供了这些或者其它先进的特性，并且常常很容易就集成到现有的代码中。
 
+AIM TO:
+Implement feature flags, with full understanding of implications for QA and production operations.
+实现特性标志的时候要充分理解QA和生产操作的影响。
+
+USE CLOUD-BASED AND MANAGED INFRASTRUCTURE
+
+使用基于云和管理基础设施
+
+Throughout this document, there have been many mentions of cloud and various managed infrastructure providers. This is because they represent a fast and cost-effective way of speeding up your continuous delivery efforts.
+
+通过这篇文章，很多云和基础管理提供商被提及。这是因为他们代表了一种快速和成本效益的方式，加快您的持续交付努力。
+
+Cloud and managed infrastructure-as-a-service are particularly useful in supporting teams that have variable requirements of their build and release infrastructure. For instance, you may find that you need to temporarily increase your capacity as you approach release.
+
+云和管理基础设施即服务在支持在构建和发布基础设施时有诸多需求的团队时显得格外有用。比如你可能会发现在你进行发布时，你需要暂时提升你的容量。
+
+The combination of cloud and automated infrastructure management are ideal for handling this variability in your CI requirements. For this reason, cloud-hosted services like CloudBees DEV@cloud (managed Jenkins in the cloud), Travis CI, or CircleCi, are ideal candidates for outsourcing your continuous delivery infrastructure.
+
+云和自动化基础设施管理的结合是处理CI中的变化理想选择。基于这个理由，云托管业务诸如DEV@cloud、Travis CI、CircleCi是外包您的连续交付基础设施的理想候选人。
+
+AIM TO:
+Reduce infrastructure administration and management, and support variability in your infrastructure requirements by deploying onto the cloud or infrastructure as a service.
+
+减少基础设施管理和管理，并支持您的基础设施需求的变化，部署到云或基础设施作为服务。
