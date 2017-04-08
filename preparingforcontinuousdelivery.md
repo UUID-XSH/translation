@@ -539,7 +539,7 @@ Change-control all relevant code and archive all released binaries.
 
 IMPLEMENT FEATURE FLAGS
 
-实现特征标志
+实现特性标志（开关）
 
 Feature flags are a facility that developers build into the software that gives them the ability to toggle specific features on or off with a high degree of granularity. This simple technique can add stability into the system through greater control of how new features are put into production use:
 
@@ -593,3 +593,53 @@ AIM TO:
 Reduce infrastructure administration and management, and support variability in your infrastructure requirements by deploying onto the cloud or infrastructure as a service.
 
 减少基础设施管理，并通过部署到云或基础设施服务使其支持需求的变化。
+
+# Check List
+
+## FUNDAMENTALS - RELEASE AUTOMATION:
+* Automated Build and Packaging
+* Automated Continuous Integration
+* Automated Testing
+* Automated Deployments
+* Managed Infrastructure and Cloud
+* Infrastructure As Code
+* Container Frameworks
+* Automated Production Deployments
+
+## 基础原理 - 发布自动化：
+* 自动化构建和打包
+* 自动化持续集成
+* 自动化测试
+* 自动化部署
+* 受管理的基础架构和云
+* 基础架构即代码
+* 容器框架
+* 自动化生产部署
+
+## IMPLEMENT A CONTINUOUS DELIVERY PIPELINE
+* Model Your Pipeline
+* Identify Non-automated Activities and Gateways
+* Implement Your Pipeline
+
+## 实现一个持续交付流水线
+* 流水线建模
+* 识别非自动化的活动和网关
+* 实现流水线
+
+## BEST PRACTICES
+* Implement Monitoring
+* Implement Rollback
+* Extract Environment-specific Configuration
+* Perform Canary Releases
+* Capture Audit Information
+* Implement Feature Flags
+* Use Cloud-based Infrastructure
+
+## 最佳实践
+* 实现监测
+* 实现回滚
+* 提取特定于环境的配置（配置与代码分离）
+* 执行金丝雀发布
+* 记录审计信息
+* 实现功能开关
+* 使用基于云的基础架构
