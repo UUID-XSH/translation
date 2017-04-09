@@ -235,6 +235,222 @@ Ideally, the process of reliably deploying an arbitrary release candidate, as we
 
 理想情况下，将任意发布候选部件以及与之通信的其他系统可靠地部署到任意环境中的这个过程应尽可能实现自动化。
 
+## Page 4
+
+If you want to operate at the pace that continuous delivery implies, you are likely to need to do this many times per day or week, and it’s essential that it works quickly and reliably.
+如果您希望按照计划的速度持续交付，那可能需要每天或每周多次执行此，因此它的工作速度和可靠性至关重要。
+
+Application release automation tools such as XebiaLabs’ XL Deploy can facilitate the process of pushing code out to environments. XL Deploy can also provide self-service capabilities that allow teams to pull release candidates into their environments without requiring development input or having to create change tickets or wait on middleware administrators.
+XebiaLabs的XL Deploy等应用程序发布自动化工具可以帮助你推送代码到运行环境。 XL Deploy还可以提供发布自助服务功能，使团队能够将发布应用程序到他们的环境中，而无需开发的帮助，或者必须需要中间件开发者的帮助。
+
+This agility in moving software between environments in an automated fashion is one of the main areas where teams new to continuous delivery are lacking, so this should also be a key focus in your own preparations for continuous delivery
+用自动化方式在环境之间移动软件是作为继续交付的团队的主要特性之一，因此这也是继续交付的关键重点
+
+
+AIM TO:
+Be able to completely roll out an arbitrary version of your software to an arbitrary environment with a single command.
+能够简化化的在任意环境中部署发布某特定版本。
+
+Incorporate smoke test checks to ensure that your deployed environment is then valid for use.
+使用冒烟测试确保部署的系统的可用性。
+
+Harden the deploy process so that it can never leave environments in a broken or partially deployed state. Incorporate self-service capabilities into this process, so QA staff or business users can select a version of the software and have that deployed at their convenience. In larger organizations, this process should incorporate business rules such that specific users have deployment permissions for specific environments.
+加强部署过程，使其永远不会使环境处于断开或部分部署状态。 将自助服务功能纳入此过程，因此质量保证人员或业务用户可以选择软件版本，并在其方便部署。 在较大的组织中，此过程应包含业务规则，使特定用户具有特定环境的部署权限。
+
+
+Evaluate application release automation tools in order to accelerate your continuous delivery efforts.
+评估应用的版本自动化工具，以加快持续部署能力。
+
+
+# 管理你的基础架构和云服务
+
+
+In a continuous delivery environment, you are likely to want to create and tear down environments with much more flexibility and agility in response to the changing needs of the project.
+
+在持续的交付环境中，可能希望具有更多灵活性和敏捷性来应对环境的创建和拆除，应对项目不断变化的需求。
+
+If you want to start up a new environment to add into your deployment pipeline and that process takes months to requisition hardware, configure the operating system, configure middleware, and set it up to accept a deployment of the software, your agility is severely limited and your ability to deliver is impacted.
+
+如果要启动新的环境以添加到部署管道中，并且该过程需要几个月的购买硬件，配置操作系统，配置中间件并将其正确部署，敏捷性受到严重限制， 你的交付能力受到限制。
+
+
+Taking advantage of virtualization and cloud-based offerings can help here. Consider cloud hosts such as Amazon EC2, Microsoft Azure or Google Cloud Platform to give you flexibility in bringing up new environments and new infrastructure as the project dictates.
+
+利用虚拟化和基于云的产品可以帮助你。 考虑像Amazon EC2，Microsoft Azure或Google Cloud Platform这样的云端主机，您可以根据项目的要求灵活地开发新的环境和新的基础架构。
+
+The cloud can also make an excellent choice for production applications, giving you more consistency across your development and production environments than previously achieved.
+
+云也可以为生产应用程序做出最佳选择，使你在开发和生产环境中实现高度的一致性。
+
+AIM TO:
+Cater for flexibility to your continuous delivery processes so you can alter pipelines and scale up or down as necessary. 
+为持续交付流程提供更多灵活性，以便您可以根据需要更改配置。
+
+Implement continuous delivery infrastructure in the cloud, giving you agility in quickly rolling out new environments, and elasticity to pause or tear down those environments when there is less demand for them.
+在云中实施持续的交付基础设施，能够快速推出新环境，并在弹性较小的情况下暂停或拆除这些环境。
+
+
+# INFRASTRUCTURE AS CODE
+
+A very common class of production incidents, errors, and rework happens when environments drift out of line in terms of their configuration — for instance, when development environments start to differ from test, or when test environments drift out of line with production.
+
+当配置方面不一致时候，例如当开发环境与测试不同，或当测试环境与生产不一致时，会发生非常常见的一系列生产事件，错误最终导致返工。
+
+Configuration management tools such as Puppet, Chef, Ansible, or Salt and environment modeling tools such as Vagrant or Terraform can help you avoid this by defining infrastructure and platforms as version controlled code, and then having the environments built automatically in a very consistent and repeatable way.
+配置管理工具（如Puppet，Chef，Ansible或Salt）和环境建模工具（如Vagrant或Terraform）可帮助您通过将基础架构和平台提供版本控制代码来避免这种情况，然后将环境自动构建成非常一致和可重复。
+
+Combined with cloud and outsourced infrastructure, this cocktail allows you to deploy accurately configured environments with ease, giving your pace of delivery a real boost.
+结合云和外包基础设施，这种鸡尾酒【混合模式】可以让您轻松部署准确配置的环境，从而为您的交付速度带来真正的提升。
+
+Vagrant and Terraform can also help by giving developers very consistent and repeatable development environments that can be virtualized and run on their own machines. Container frameworks (see next section) are another popular option to achieve this.
+Vagrant和Terraform也可以为开发人员提供非常一致和可重复的开发环境，可以在自己的机器上进行虚拟化和运行。 容器（见下一节）是实现此目的的另一个常用选项。
+
+These tools are all important because consistency of environments is a huge enabler in allowing software to flow through the pipeline in a consistent and reliable way
+这些工具都非常重要，因为环境的一致性是允许软件以一致和可靠的方式流过管道的巨大推动力
+
+AIM TO:
+Implement configuration management tools, giving you much more control in building environments consistently, especially in conjunction with the cloud.
+
+实施配置管理化，更加全面地控制构建环境，特别是与云结合使用。
+
+Investigate Vagrant, Terraform and container frameworks as a means of giving developers very consistent local development environments.
+Vagrant，Terraform和容器框架，以此为开发者提供非常一致的本地开发环境。
+
+# CONTAINER FRAMEWORKS
+One way or another, containers will very likely crop up at some point in your continuous delivery preparation: whether as a new runtime for your production environment, a more lightweight means of creating a reproducible local development setup, or simply as a technology to track for potential future use.
+
+另一种方式，容器在连续交付准备中的某个时刻很可能会出现：无论是作为生产环境的新运行时间，或者创建可重复的本地开发设置的更轻量级的手段，还是简单的跟踪技术潜在的未来使用。
+
+If you decide to try to containerize your applications, ensure you also investigate orchestration frameworks such as Docker Swarm, Mesos, or Kubernetes, which will allow you to define and control groups of related containers as a single, versioned entity. Since these frameworks are still “rough around the edges” in places, optionally also look one of a variety of management tools such as Deis, Rancher, or OpenShift, to simply usage.
+
+如果您决定尝试将应用程序集中起来，请确保您还可以调查业务流程框架，如Docker Swarm，Mesos或Kubernetes，这将允许您将相关容器组定义和控制为单个版本化实体。由于这些框架在某些地方仍处于“粗糙的边缘”，所以还可以选择Deis，Rancher或OpenShift等各种管理工具之一来简单地使用。
+
+Should you be planning to run your production environment on containers, ensure that the orchestration framework you choose can be used for local development, too. Otherwise, there is, again, a risk that the way containers are “linked up” on a developer’s machine will not match what will happen in production.
+如果您计划在容器上运行生产环境，请确保您选择的业务流程框架也可用于本地开发。否则，再次存在容器在开发机器上“联系起来”的方式的风险与生产中将会发生什么不一致。
+
+# AUTOMATED PRODUCTION DEPLOYMENTS
+
+Though most software teams have a degree of automation in their builds and testing, the actual act of deployment onto production servers is often still one of the most manual processes for the typical software team.
+虽然大多数软件团队的构建和测试都具有一定程度的自动化，但是在生产服务器上部署的实际行为通常仍然是典型软件团队最为人为的过程之一。
+
+
+For instance, teams might have multiple binaries that are pushed onto multiple servers, some database upgrade scripts that are manually executed, and then some manual installation steps to connect these together. Often they will also carry out manual steps for the startup of the system, and smoke tests.
+例如，团队可能会将多个二进制文件推送到多个服务器上，一些手动执行的数据库升级脚本，然后是一些手动安装步骤来将它们连接在一起。他们通常也会执行系统启动的手动步骤和冒烟测试。
+
+
+Because of this complexity, releases often happen outside of business hours. Indeed, some unfortunate software teams have to perform their upgrades and scheduled maintenance at 3am on a Sunday morning in order to cause the least disruption to the customer base!
+由于这种复杂性，发布经常发生在营业时间之外。事实上，一些不幸的软件团队必须在星期天早上凌晨3点进行升级和定期维护，以免对客户群造成最小的影响！
+
+To move towards continuous delivery, you’ll need to tackle this pain and slowly script and automate away the manual steps from your production release process such that it can be run repeatedly and consistently. Ideally, you will need to get to the stage where you can do this during business
+要实现持续交付，您需要解决这一痛苦，并缓慢地编写脚本并自动从您的生产发布过程中手动执行步骤，以便可以重复和一致地运行。理想情况下，您将需要到达您在业务过程中可以做到的阶段
+
+hours while the system is in use. This may have significant consequences for the architecture of your system. To make production deploys multiple times per day whilst the system is in use, it’s important to ensure that the process is also tested and hardened so you never leave the production application in a broken state due to a failed deploy.
+系统正在使用的时间。这可能会对系统的体系结构产生重大影响。为了使系统在使用中每天进行多次生产，重要的是要确保该过程也经过测试和加固，以免由于部署失败而使生产应用程序处于断开状态。
+
+
+AIM TO:
+
+Completely automate the production deploy process such that it can be executed from a single command or script.
+完全自动化生产部署过程，使其可以从单个命令或脚本执行。
+
+Be able to deploy the next version of the software while the production system is live, and switch over to the new version with no degradation of service.
+在生产系统生效的同时，可以部署软件的下一个版本，并切换到新版本，而不会降低服务质量。
+
+Be able to deploy to production using exactly the same process by which you deploy to other environments.
+能够使用完全相同的部署到其他环境的进程部署到生产。
+
+Implement the best practices described below, such as canary releasing, rollback, and monitoring in order to enhance stability of the production system.
+实施下面描述的最佳做法，例如金丝雀释放，回滚和监控，以提高生产系统的稳定性。
+
+
+
+# IMPLEMENTING A CONTINUOUS DELIVERY PIPELINE
+
+
+A delivery pipeline is a simple but key pattern that gives you a framework towards implementing continuous delivery.
+输送管道是一个简单但关键的模式，为您提供实现持续交货的框架。
+
+The pipeline describes:
+管道描述
+• The explicit stages that software moves between on its path from source control to production;
+软件在从源头控制到生产的路径之间的显式阶段;
+• Which stages are automated and which have manual steps;
+哪些阶段是自动化的，哪些阶段有手动步骤？
+• What the criteria are for moving between pipeline stages,capturing which gateways are automated and which are manual;
+在流水线阶段之间移动的标准是什么，捕获哪些网关是自动化的，哪些是手动的？
+• Where parallel flows are allowed.
+允许并联流量。
+Importantly, the delivery pipeline concept gives us visibility into the production readiness of our release candidates.
+重要的是，交付管道的概念让我们了解我们发布候选人的生产准备情况。
+For instance, if you know that you have a release candidate in UAT and a release candidate just about to pass performance testing with a certain set of additional features, you can use this to make decisions about how, when,and what to release to production.
+例如，如果您知道您在UAT中有发布候选，以及即将通过一系列附加功能进行性能测试的发行人候选，则可以使用它来决定如何，何时以及要发布到生产 。
+
+
+STEP 1: MODEL YOUR PIPELINE
+步骤1：建立您的管道
+
+The first step in putting together a delivery pipeline is to identify the stages that you would like your software to go through to get from the source control repository into production.
+组装交付流程的第一步是确定您希望软件完成的阶段，以便从源代码库进行生产管理。
+
+
+The typical software development team will have a number to choose from, some of which are automated and some of which are manual:
+典型的软件开发团队将有一些可供选择，其中一些是自动化的，其中一些是手动的：
+
+
+While implementing continuous delivery, you may wish to take the opportunity to add in stages above and beyond those that you do today.
+在实施持续交付的同时，您可能希望借此机会添加超越你今天所做的工作。
+
+For instance, perhaps adding automated acceptance testing would reduce the scope of manual testing required, speeding up development cycles and increasing your potential for continuous delivery. Perhaps adding automated performance testing or manual user beta testing will allow you to shorten your cycle time still further and release more frequently.
+例如，也许增加自动验收测试将减少所需的手动测试的范围，加快开发周期并增加您的持续交货的能力。也许添加自动性能测试或手动用户测试可以让您缩短周期时间，进一步发布并更频繁地发布。
+
+Having identified which stages are important to you, you should then think about how to arrange the stages into an ordered pipeline, noting the inputs and outputs of each phase. A very simple example of a pipeline might look like this:
+确定了哪些阶段对您很重要，然后您应该考虑如何将阶段安排到有序的流程中，并注意到每个阶段的投入和产出。管道的一个非常简单的例子可能如下所示：
+
+Every software team does things in a subtly different way, however. For instance, depending on your comfort with and levels of automated testing, you may decide to skip any form of exploratory testing and rely completely on automated testing processes, reducing the length of the pipeline to a very short fully automated process:
+不过，每个软件团队都会以微妙的方式做事情。例如，根据您的舒适度和自动化测试的水平，您可以决定跳过任何形式的探索性测试，并完全依赖于自动测试过程，将管道的长度缩短到非常短的全自动化过程：
+
+Other teams might choose to parallelize flows and testing stages. This is especially useful where testing is manual and stages are time consuming — a fairly likely prospect at the very outset of your continuous integration journey.
+其他团队可能会选择并行化流程和测试阶段。这在测试是手动的和阶段是耗时的时候特别有用 - 在您的持续整合之旅开始时，相当可能的前景。
+
+Running performance tests at the same time as UAT might be one example of this parallelization. This can obviously speed up the end to end delivery process when things go well, but it could lead to wasted effort if one branch of the pipeline fails and the release candidate is rejected:
+与UAT同时运行性能测试可能是这种并行化的一个例子。当事情进展顺利的时候，这显然可以加快端到端的交付过程，但如果管道的一个分支发生故障，并且发布候选人被拒绝，可能导致浪费的努力：
+
+The pipelines above are extremely simple but illustrate the kind of decisions you will need to make in modeling the flow and implementing your pipeline. The best pipeline isn’t always obvious and requires tradeoffs:
+上面的管道非常简单，但说明了您需要在建模流程和实施管道时做出的决策。最好的管道并不总是很明显，需要权衡
+
+IDEAL SITUATION TRADEOFF
+
+All stages and gateways would be automated.
+所有阶段和网关都将自动化。
+
+Requires substantial investment in automated tests and release automation.
+需要大量投资自动化测试和发布自动化。
+
+Always avoid expensive human re-work.
+始终避免昂贵的人工重新工作。
+
+You need to parallelise test phases if they are slow and manual, giving the risk of failed release candidates in another stage of the pipeline. Always perform automated testing.
+如果测试阶段较慢且手动，则需要将测试阶段并行化，从而在管道的另一个阶段出现失败的候选人的风险。始终执行自动化测试。
+
+Detailed automated testing is also expensive in production like environments.
+详细的自动测试在诸如环境的生产中也是昂贵的。
+
+
+Implement lots of environments to support testing phases.
+实施大量环境来支持测试阶段。
+
+
+Maintaining environments has an associated management and financial cost.
+维护环境具有相关的管理和财务成本。
+
+
+Whatever position you take on the various tradeoffs, the output of your delivery pipeline modeling should be a basic flow chart that documents the path that your software takes on its journey from source code to production.
+无论您对各种权衡采取何种立场，输送管道建模的输出应该是一个基本的流程图，记录了软件从源代码到生产的路径。
+
+STEP 2: IDENTIFY NON-AUTOMATED ACTIVITIES AND GATEWAYS
+
+As previously mentioned, you would ideally like all of the phases of the pipeline to be automated.
+如前所述，您最好将管道的所有阶段自动化。
 
 
 ## 小火占坑
