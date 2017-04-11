@@ -424,8 +424,8 @@ For instance, if you know that you have a release candidate in UAT and a release
 例如，如果您知道您在UAT中有发布候选，以及即将通过一系列附加功能进行性能测试的发行人候选，则可以使用它来决定如何，何时以及要发布到生产 。
 
 
-##STEP 1: MODEL YOUR PIPELINE
-##步骤1：建立您的管道
+## STEP 1: MODEL YOUR PIPELINE
+## 步骤1：建立您的管道
 
 The first step in putting together a delivery pipeline is to identify the stages that you would like your software to go through to get from the source control repository into production.
 
@@ -435,7 +435,7 @@ The first step in putting together a delivery pipeline is to identify the stages
 The typical software development team will have a number to choose from, some of which are automated and some of which are manual:
 
 典型的软件开发团队将有一些可供选择，其中一些是自动化的，其中一些是手动的：
-#[image]
+# [image]
 
 While implementing continuous delivery, you may wish to take the opportunity to add in stages above and beyond those that you do today.
 
@@ -448,12 +448,12 @@ For instance, perhaps adding automated acceptance testing would reduce the scope
 Having identified which stages are important to you, you should then think about how to arrange the stages into an ordered pipeline, noting the inputs and outputs of each phase. A very simple example of a pipeline might look like this:
 
 确定了哪些阶段对您很重要，然后您应该考虑如何将阶段安排到有序的流程中，并注意到每个阶段的投入和产出。管道的一个非常简单的例子可能如下所示：
-#[image]
+# [image]
 
 Every software team does things in a subtly different way, however. For instance, depending on your comfort with and levels of automated testing, you may decide to skip any form of exploratory testing and rely completely on automated testing processes, reducing the length of the pipeline to a very short fully automated process:
 
 不过，每个软件团队都会以微妙的方式做事情。例如，根据您的舒适度和自动化测试的水平，您可以决定跳过任何形式的探索性测试，并完全依赖于自动测试过程，将管道的长度缩短到非常短的全自动化过程：
-#[image]
+# [image]
 
 Other teams might choose to parallelize flows and testing stages. This is especially useful where testing is manual and stages are time consuming — a fairly likely prospect at the very outset of your continuous integration journey.
 
@@ -462,14 +462,14 @@ Other teams might choose to parallelize flows and testing stages. This is especi
 Running performance tests at the same time as UAT might be one example of this parallelization. This can obviously speed up the end to end delivery process when things go well, but it could lead to wasted effort if one branch of the pipeline fails and the release candidate is rejected:
 
 与UAT同时运行性能测试可能是这种并行化的一个例子。当事情进展顺利的时候，这显然可以加快端到端的交付过程，但如果管道的一个分支发生故障，并且发布候选人被拒绝，可能导致浪费的努力：
-#[image]
+# [image]
 
 The pipelines above are extremely simple but illustrate the kind of decisions you will need to make in modeling the flow and implementing your pipeline. The best pipeline isn’t always obvious and requires tradeoffs:
 
 上面的管道非常简单，但说明了您需要在建模流程和实施管道时做出的决策。最好的管道并不总是很明显，需要权衡
 
 IDEAL SITUATION TRADEOFF
-#[table]
+# [table]
 
 All stages and gateways would be automated.
 所有阶段和网关都将自动化。
@@ -499,7 +499,7 @@ Whatever position you take on the various tradeoffs, the output of your delivery
 
 无论您对各种权衡采取何种立场，输送管道建模的输出应该是一个基本的流程图，记录了软件从源代码到生产的路径。
 
-##STEP 2: IDENTIFY NON-AUTOMATED ACTIVITIES AND GATEWAYS
+## STEP 2: IDENTIFY NON-AUTOMATED ACTIVITIES AND GATEWAYS
 
 As previously mentioned, you would ideally like all of the phases of the pipeline to be automated.
 如前所述，您最好将管道的所有阶段自动化。
@@ -793,7 +793,7 @@ Change-control all relevant code and archive all released binaries.
 
 IMPLEMENT FEATURE FLAGS
 
-实现特征标志
+实现特征标志（开关）
 
 Feature flags are a facility that developers build into the software that gives them the ability to toggle specific features on or off with a high degree of granularity. This simple technique can add stability into the system through greater control of how new features are put into production use:
 
@@ -847,3 +847,53 @@ AIM TO:
 Reduce infrastructure administration and management, and support variability in your infrastructure requirements by deploying onto the cloud or infrastructure as a service.
 
 减少基础设施管理，并通过部署到云或基础设施服务使其支持需求的变化。
+
+# Check List
+
+## FUNDAMENTALS - RELEASE AUTOMATION:
+* Automated Build and Packaging
+* Automated Continuous Integration
+* Automated Testing
+* Automated Deployments
+* Managed Infrastructure and Cloud
+* Infrastructure As Code
+* Container Frameworks
+* Automated Production Deployments
+
+## 基础原理 - 发布自动化：
+* 自动化构建和打包
+* 自动化持续集成
+* 自动化测试
+* 自动化部署
+* 受管理的基础架构和云
+* 基础架构即代码
+* 容器框架
+* 自动化生产部署
+
+## IMPLEMENT A CONTINUOUS DELIVERY PIPELINE
+* Model Your Pipeline
+* Identify Non-automated Activities and Gateways
+* Implement Your Pipeline
+
+## 实现一个持续交付流水线
+* 流水线建模
+* 识别非自动化的活动和网关
+* 实现流水线
+
+## BEST PRACTICES
+* Implement Monitoring
+* Implement Rollback
+* Extract Environment-specific Configuration
+* Perform Canary Releases
+* Capture Audit Information
+* Implement Feature Flags
+* Use Cloud-based Infrastructure
+
+## 最佳实践
+* 实现监测
+* 实现回滚
+* 提取特定于环境的配置（配置与代码分离）
+* 执行金丝雀发布
+* 记录审计信息
+* 实现功能开关
+* 使用基于云的基础架构
