@@ -31,4 +31,77 @@ WelcomeService service = new WelcomeService();
 ```
 
 <p>It’s creating an instance of it. And that means they are tightly coupled. For example: If I create a mock for WelcomeService in a unit test for WelcomeController, how do I make WelcomeController use the mock? Not easy!</p>
-<p>上述代码创建了一个WelcomeService的实例。这意味着他们紧紧的耦合在一起。举个例子，</p>
+<p>上述代码创建了一个WelcomeService的实例。这意味着他们紧紧的耦合在一起。举个例子，如果我在一个单元测试中为WelcomeController创造一个WelcomeService的mock对象，那我应该如何使WelcomeController使用它？做到这点很不容易。</p>
+
+```
+@RestController
+public class WelcomeController {
+private WelcomeService service = new WelcomeService();
+@RequestMapping("/welcome")
+public String welcome() {
+    return service.retrieveWelcomeMessage();
+}
+}
+```
+
+<h4>Same Example with Dependency Injection</h4>
+<h4>使用依赖注入的相同案例</h4>
+
+<p>The world looks much simpler with dependency injection. You let the Spring Framework do the hard work. We just use two simple annotations: @Component and @Autowired.</p>
+<p>世界因为依赖注入而变得更加简单。于是你把困难交给了spring框架。我们只需要使用两个简单的注解：@Component和@Autowired</p>
+
+<p>Using @Component , we tell Spring Framework: Hey there, this is a bean that you need to manage.
+Using @Autowired , we tell Spring Framework: Hey find the correct match for this specific type
+and autowire it in.</p>
+
+<p>通过使用@Component，我们告诉Spring框架：这里是一个bean，你需要去管理。
+使用@Autowired，我们告诉spring框架：去帮我找到匹配的类型并注入进来。</p>
+
+
+<p>In the example below, Spring framework would create a bean for WelcomeService and autowire it into WelcomeController.</p>
+<p>在下面的例子中，spring框架将会为WelcomeService创建一个bean病把它注入到WelcomeController中。</p>
+
+<p>In a unit test, I can ask the Spring framework to auto-wire the mock of WelcomeService into WelcomeController. (Spring Boot makes things easy to do this with @MockBean. But, that’s a different story altogether!)</p>
+<p>在一个单元测试中，我可以请求spring框架将一个WelcomeService的mock对象注入到WelcomeController中。（SpringBoot通过使用@MockBean让这件事情变得更加简单。但是，二者放在一起则是一个另外的故事！）
+
+``` 
+@Component
+public class WelcomeService {
+    //Bla Bla Bla
+}
+
+@RestController
+public class WelcomeController {
+
+@Autowired
+private WelcomeService service;
+
+@RequestMapping("/welcome")
+public String welcome() {
+    return service.retrieveWelcomeMessage();
+}
+}
+```
+
+<h4>What Else Does Spring Framework Solve?</h4>
+<h4>Spring框架还解决了什么？</h4>
+
+<h5>Problem 1: Duplication/Plumbing Code</h5>
+<h5>问题1：重复/管道代码</h5>
+
+<p>Does Spring Framework stop with Dependency Injection? No. It builds on the core concept of Dependency Injection with a number of Spring Modules
+Spring JDBC 
+Spring MVC 
+Spring AOP 
+Spring ORM 
+Spring JMS 
+Spring Test</p>
+
+<p>Spring框架止步于依赖注入了吗？不。它构建了一系列以依赖注入为核心的spring模块。</p>
+
+<p>Consider Spring JMS and Spring JDBC for a moment.
+   Do these modules bring in any new functionality? No. We can do all this with J2EE or Java EE. So, what do these bring in? They bring in simple abstractions. The aim of these abstractions is to
+   Reduce Boilerplate Code/Reduce Duplication Promote Decoupling/Increase Unit Testability
+   For example, you need much less code to use a JDBCTemplate or a JMSTemplate compared to a traditional JDBC or JMS.</p>
+   
+<p></p>
