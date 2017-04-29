@@ -104,4 +104,27 @@ Spring Test</p>
    Reduce Boilerplate Code/Reduce Duplication Promote Decoupling/Increase Unit Testability
    For example, you need much less code to use a JDBCTemplate or a JMSTemplate compared to a traditional JDBC or JMS.</p>
    
+<p>考虑一下Spring JMS and Spring JDBC两个模块。引入这些模块带来额外的功能了吗？没有。我们完全可以使用J2EE or Java EE去取代它们。那么我们为什么要引入？因为它带来了简单的抽象。这些抽象的目标是为了减少
+样本代码和重复代码以及提高解耦度，增加单元可测试性。举个例子，相比于传统的JDBC或者JMS，使用JDBCTemplate或JMSTemplate可以使代码量变得更少。</p>
+
+<h5>Problem 2: Good Integration With Other Frameworks</h5>
+<h5>问题2：与其他框架更好的整合</h5>
+
+<p>The great thing about Spring Framework is that it does not try to solve problems that are already solved. All that it does is to provide a great integration with frameworks which provide great solutions.
+   Hibernate for ORM
+   iBatis for Object Mapping
+   JUnit and Mockito for Unit Testing</p>
+   
+<p>Spring框架的伟大之处在于它并不试图去解决已经被解决的问题。它做的所有的一切都是为了提供一个良好的环境去和其它提供解决方案的框架集成在一起。</p>
+
+<h4>What Is the Core Problem That Spring MVC Framework Solves?</h4>
+<h4>什么事Spring MVC解决的核心问题？</h4>
+
+<p>Spring MVC Framework provides decoupled way of developing web applications. With simple concepts like Dispatcher Servlet, ModelAndView and View Resolver, it makes it easy to develop web applications.</p>
+<p>Sring MVC提供了一种解耦的方法去开发web应用。通过一些诸如Dispatcher Servlet、ModelAndView以及View Resolver的简单概念去使得开发web应用变得更加简单。</p>
+
+<h4>Why Do We Need Spring Boot?</h4>
+<h4>为什么我们需要Spring Boot</h4>
+
+<p>Spring based applications have a lot of configuration.When we use Spring MVC, we need to configure component scan, dispatcher servlet, a view resolver, web jars(for delivering static content) among other things.</p>
 <p></p>
