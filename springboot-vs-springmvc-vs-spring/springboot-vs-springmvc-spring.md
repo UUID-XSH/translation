@@ -127,4 +127,85 @@ Spring Test</p>
 <h4>为什么我们需要Spring Boot</h4>
 
 <p>Spring based applications have a lot of configuration.When we use Spring MVC, we need to configure component scan, dispatcher servlet, a view resolver, web jars(for delivering static content) among other things.</p>
-<p></p>
+<p>基于Spring的应用会有很多配置。当我们使用Spring MVC时，我们需要配置组建扫描，servlet调度，视图解析，用于传递静态内容的web jar包以及其他。</p>
+
+```
+<bean
+      class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+       <property name="prefix">
+          <value>/WEB-INF/views/</value>
+      </property>
+      <property name="suffix">
+          <value>.jsp</value>
+      </property>
+</bean>
+<mvc:resources mapping="/webjars/**" location="/webjars/"/>
+```
+
+<p>The code snippet below shows the typical configuration of a dispatcher servlet in a web application.</p>
+<p>下面的代码片段则示范了一个典型的在一个web应用中配置servlet分发器的过程。</p>
+
+```
+<servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>
+        org.springframework.web.servlet.DispatcherServlet
+    </servlet-class>
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/todo-servlet.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>/</url-pattern>
+</servlet-mapping>
+```
+
+<p>When we use Hibernate/JPA, we would need to configure a datasource, an entity manager factory, a transaction manager among a host of other things.</p>
+<p>当我们使用Hibernate或者JPA，我们需要配置一个数据源，一个实体管理工厂，一个事物管理器以及很多其它事情。</p>
+
+```
+<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+    destroy-method="close">
+    <property name="driverClass" value="${db.driver}" />
+    <property name="jdbcUrl" value="${db.url}" />
+    <property name="user" value="${db.username}" />
+    <property name="password" value="${db.password}" />
+</bean>
+<jdbc:initialize-database data-source="dataSource">
+    <jdbc:script location="classpath:config/schema.sql" />
+    <jdbc:script location="classpath:config/data.sql" />
+</jdbc:initialize-database>
+<bean
+    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+    id="entityManagerFactory">
+    <property name="persistenceUnitName" value="hsql_pu" />
+    <property name="dataSource" ref="dataSource" />
+</bean>
+<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionMana
+    <property name="entityManagerFactory" ref="entityManagerFactory" />
+    <property name="dataSource" ref="dataSource" />
+</bean>
+<tx:annotation-driven transaction-manager="transactionManager"/>
+```
+
+<h5>Problem #1: Spring Boot Auto Configuration: Can We Think Different?</h5>
+<h5>问题1：Spring Boot自动配置：我们可以另辟蹊径吗？</h5>
+
+<p>Spring Boot brings a new thought process around this.
+Can we bring more intelligence into this? When a spring mvc jar is added into an application, can we auto configure some beans automatically?
+How about auto-configuring a Data Source if Hibernate jar is on the classpath?
+How about auto-configuring a Dispatcher Servlet if Spring MVC jar is on the classpath?
+There would be provisions to override the default auto configuration.
+Spring Boot looks at a) Frameworks available on the CLASSPATH b) Existing configuration for the application. Based on these, Spring Boot provides basic configuration needed to configure the application with these frameworks. This is called
+Auto Configuration .</p>
+
+<p>Spring Boot为我们带来了一个新的途径去思考该问题。
+我们能让此变得更加智能吗？当一个spring mvc的jar包添加到应用中，我们可以让其自动配置一下bean吗？
+当Hibernate的jar包被添加到类路径下，就自动配置数据源怎么样？
+当Spring MVC的jar包被添加到类路径下，就自动配置Servlet分发器怎么样？
+同样也可以有覆写默认自动配置的规定。
+Spring boot关注以下两点：
+</p>
