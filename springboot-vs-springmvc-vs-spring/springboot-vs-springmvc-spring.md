@@ -323,10 +323,22 @@ spring-boot-starter-data-rest:  使用Spring Data REST暴露简单的REST服务
 <p>There are a few starters for technical stuff as well
 spring-boot-starter-actuator: To use advanced features like monitoring and tracing to your application out of the box
 spring-boot-starter-undertow, spring-boot-starter-jetty, spring-boot-starter-tomcat: To pick your specific choice of Embedded Servlet Container
-spring-boot-starter-logging: For Logging using logback spring-boot-starter-log4j2: Logging using Log4j2
+spring-boot-starter-logging: For Logging using logback 
+spring-boot-starter-log4j2: Logging using Log4j2
+
 Spring Boot aims to enable production ready applications in quick time.
 Actuator: Enables Advanced Monitoring and Tracing of applications.
 Embedded Server Integrations: Since the server is integrated into the application, I would need to have a separate application server installed on the server.
 Default Error Handling</p>
 
-<p>这里有一些starter，同样用于技术资料</p>
+<p>这里有一些starter，同样用于技术资料
+spring-boot-starter-actuator: 用于高级特性，诸如监控，以及追踪你的应用
+spring-boot-starter-undertow, spring-boot-starter-jetty, spring-boot-starter-tomcat:用于选择特定的内置Servlet容器
+spring-boot-starter-logging: 使用logback进行日志处理 
+spring-boot-starter-log4j2: 使用Log4j2进行日志处理</p>
+
+<p>Spring Boot致力于快速的使应用进入生产状态。
+执行器:使用高级监控和应用追踪
+嵌入式服务器集成：由于服务是集成在应用中，我需要在服务器上安装一个不同的应用。
+默认错误处理
+</p>
