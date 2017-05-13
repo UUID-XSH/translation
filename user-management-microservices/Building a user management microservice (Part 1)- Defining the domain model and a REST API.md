@@ -80,7 +80,7 @@ User stories usually don’t define non-functional requirements, such as securit
 * 领域模型是使用域驱动的设计原则在纯Java中实现的，并且独立于要使用的底层技术栈
 * 当用户登录时，将为他们生成一个JWT令牌，有效期是24小时。在后续请求中包含此令牌，用户可以执行需要身份验证的操作
 * 密码重置令牌有效期为10分钟，电子邮件地址确认令牌为一天
-* 密码用加密算法（Bcrypt）加密，每用户盐
+* 密码用加密算法（Bcrypt）加密，并且每用户加盐
 * 提供了RESTful API，用于与用户注册服务进行交互
 * 应用程序将具有模块化设计，以便能够为各种场景提供单独的部署工件（例如，针对Google App Engine的2.5 servlet兼容WAR和其他用例的基于Spring Boot的自包含可执行JAR）
 * 实体标识符以数据库无关的方式生成，也就是说，不会使用数据库特定机制（AUTO_INCREMENT或序列）来获取下一个ID值。解决方案将类似于Instagram genetes ID。
