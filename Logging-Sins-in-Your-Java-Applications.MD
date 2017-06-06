@@ -62,7 +62,7 @@ Before we move on, here’s a more comprehensive list of the types of informatio
 
 在我们继续之前，这里有一个更全面的信息类型列表(https://www.owasp.org/index.php/Logging_Cheat_Sheet#Data_to_exclude)，您需要非常小心地记录这些信息。
 
-### Logging Plain User Input 记录朴素的用户输入
+### Logging Plain User Input 明文记录用户输入
 
 Another common security issue in Java applications is JVM Log Forging.
 
