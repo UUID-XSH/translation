@@ -2,7 +2,7 @@
 
 # 为持续交付做准备
 
-### Building Your DevOps Pipeline  建立您的DevOps管道
+### Building Your DevOps Pipeline  建立您的DevOps流水线
 
 ## 目录：
 
